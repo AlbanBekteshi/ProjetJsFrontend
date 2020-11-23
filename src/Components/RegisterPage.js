@@ -78,13 +78,9 @@ const onRegister = (e) => {
   var password = document.getElementById("password").value;
   var password2 = document.getElementById("password2").value;
   var email = document.getElementById("email").value;
-  console.log(password);
-  console.log(password2);
-  console.log(email);
-  const emailRegex = RegExp('/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/');
-
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  
   // Email Verification
-  console.log(emailRegex.test(email));
   if(!emailRegex.test(email)){
     var error = new Error("Le format de l'email est incorrect !");
     document.getElementById("email").classList.add('border');
