@@ -26,6 +26,7 @@ let registerPage = `<form>
   <div class="form-group col-md-12 col-lg-6">
     <label for="password2">Password</label>
     <input class="form-control" id="password2" type="password" name="password2" placeholder="Repeat your password" required/>
+    <div class="invisible" id="errorPassword">test</div>
   </div>
 </div>
 
@@ -43,7 +44,7 @@ let registerPage = `<form>
 <div class="row">
   <div class="form-group col-md-12 col-lg-6">
     <label for="avatar">Avatar</label>
-    <input class="form-control" id="avatar" type="file" name="avatar" placeholder="Choose your avatar" accept=".jpg,.png,.jpeg" required/>
+    <input class="form-control" id="avatar" type="file" name="avatar" placeholder="Choose your avatar" accept=".jpg,.png,.jpeg"/>
   </div>
 </div>
 
@@ -74,27 +75,61 @@ const RegisterPage = () => {
 
 const onRegister = (e) => {
   e.preventDefault();
-  let user = {
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
-  };
+  var password = document.getElementById("password").value;
+  var password2 = document.getElementById("password2").value;
+  var email = document.getElementById("email").value;
+  console.log(password);
+  console.log(password2);
+  console.log(email);
+  const emailRegex = RegExp('/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/');
 
-  fetch(API_URL + "users/", {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    body: JSON.stringify(user), // body data type must match "Content-Type" header
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(
-          "Error code : " + response.status + " : " + response.statusText
-        );
-      return response.json();
-    })
-    .then((data) => onUserRegistration(data))
-    .catch((err) => onError(err));
+  // Email Verification
+  console.log(emailRegex.test(email));
+  if(!emailRegex.test(email)){
+    var error = new Error("Le format de l'email est incorrect !");
+    document.getElementById("email").classList.add('border');
+    document.getElementById("email").classList.add('border-danger');
+    onError(error);
+  }
+  else{
+    //Password verification
+    if(password!=password2){
+      var error = new Error("Les mots de passes ne sont pas identiques");
+      document.getElementById("password").classList.add('border');
+      document.getElementById("password").classList.add('border-danger');
+      document.getElementById("password2").classList.add('border');
+      document.getElementById("password2").classList.add('border-danger');
+      onError(error);
+      
+    }
+    else{
+
+      //email + password OK => register user
+      let user = {
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+      };
+    
+      fetch(API_URL + "users/", {
+        method: "POST", // *GET, POST, PUT, DELETE, etc.
+        body: JSON.stringify(user), // body data type must match "Content-Type" header
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (!response.ok)
+            throw new Error(
+              "Error code : " + response.status + " : " + response.statusText
+            );
+          return response.json();
+        })
+        .then((data) => onUserRegistration(data))
+        .catch((err) => onError(err));
+    }
+  }
+
+  
 };
 
 const onUserRegistration = (userData) => {
