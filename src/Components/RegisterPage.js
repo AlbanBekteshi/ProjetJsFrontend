@@ -6,6 +6,9 @@ import { API_URL } from "../utils/server.js";
 /* In a template literal, the ` (backtick), \ (backslash), and $ (dollar sign) characters should be 
 escaped using the escape character \ if they are to be included in their template value. 
 By default, all escape sequences in a template literal are ignored.*/
+/*
+
+*/
 let registerPage = `<form>
 <div class="row">
   <div class="form-group col-md-12 col-lg-6">
@@ -78,19 +81,12 @@ const onRegister = (e) => {
   var password = document.getElementById("password");
   var password2 = document.getElementById("password2");
   var email = document.getElementById("email");
-
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   
   // Email Verification
-  if(!emailRegex.test(email.value)){
-    var error = new Error("Le format de l'email est incorrect !");
-    email.classList.add('border');
-    email.classList.add('border-danger');
-    onError(error);
-  }
-  else{
+  if(isEmailGoodFormat()){
     email.classList.remove('border');
     email.classList.remove('border-danger');
+    
     //Password verification
     if(password.value!=password2.value){
       var error = new Error("Les mots de passes ne sont pas identiques");
@@ -134,8 +130,6 @@ const onRegister = (e) => {
         .catch((err) => onError(err));
     }
   }
-
-  
 };
 
 const onUserRegistration = (userData) => {
@@ -157,5 +151,18 @@ const onError = (err) => {
   // show the messageBoard div (add relevant Bootstrap class)
   messageBoard.classList.add("d-block");
 };
+
+function isEmailGoodFormat(){
+  var email = document.getElementById("email");
+  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if(!emailRegex.test(email.value)){
+    var error = new Error("Le format de l'email est incorrect !");
+    email.classList.add('border');
+    email.classList.add('border-danger');
+    onError(error);
+    return false;
+  }
+  return true;
+}
 
 export default RegisterPage;
