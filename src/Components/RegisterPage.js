@@ -76,16 +76,30 @@ const RegisterPage = () => {
   }
 };
 
+function clearErrorBox(){
+  document.getElementById("email").classList.remove("border");
+  document.getElementById("email").classList.remove("border-danger");
+  document.getElementById("username").classList.remove("border");
+  document.getElementById("username").classList.remove("border-danger");
+  email.classList.remove('border');
+  email.classList.remove('border-danger');
+  password.classList.remove('border');
+  password.classList.remove('border-danger');
+  password2.classList.remove('border');
+  password2.classList.remove('border-danger');
+}
+
 const onRegister = (e) => {
   e.preventDefault();
   var password = document.getElementById("password");
   var password2 = document.getElementById("password2");
   var email = document.getElementById("email");
+  clearErrorBox();
+  
   
   // Email Verification
   if(isEmailGoodFormat()){
-    email.classList.remove('border');
-    email.classList.remove('border-danger');
+    
     
     //Password verification
     if(password.value!=password2.value){
@@ -98,10 +112,7 @@ const onRegister = (e) => {
       
     }
     else{
-      password.classList.remove('border');
-      password.classList.remove('border-danger');
-      password2.classList.remove('border');
-      password2.classList.remove('border-danger');
+      
       
       //email + password OK => register user
       let user = {
@@ -144,9 +155,21 @@ const onUserRegistration = (userData) => {
 const onError = (err) => {
   let messageBoard = document.querySelector("#messageBoard");
   let errorMessage = "";
-  if (err.message.includes("409"))
-    errorMessage = "This user is already registered.";
-  else errorMessage = err.message;
+  
+  if (err.message.includes("409")){
+    document.getElementById("email").classList.add("border");
+    document.getElementById("email").classList.add("border-danger");
+    errorMessage = "This email is already used";
+  }
+  else{
+    if(err.message.includes("410")){
+      document.getElementById("username").classList.add("border");
+      document.getElementById("username").classList.add("border-danger");
+      errorMessage = "This username is already used";
+    }
+    else errorMessage = err.message;
+  }
+  
   messageBoard.innerText = errorMessage;
   // show the messageBoard div (add relevant Bootstrap class)
   messageBoard.classList.add("d-block");
