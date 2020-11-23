@@ -8,12 +8,12 @@ import { API_URL } from "../utils/server.js";
 
 let loginPage = `<form>
 <div class="form-group">
-  <label for="email">Email</label>
-  <input class="form-control" id="email" type="text" name="email" placeholder="Enter your email" required="" pattern="^\\w+([.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,4})+\$" />
+  <label for="username">Username</label>
+  <input class="form-control" id="email" type="text" name="email" placeholder="Enter your username" required/>
 </div>
 <div class="form-group">
   <label for="password">Password</label>
-  <input class="form-control" id="password" type="password" name="password" placeholder="Enter your password" required="" pattern=".*[A-Z]+.*" />
+  <input class="form-control" id="password" type="password" name="password" placeholder="Enter your password" required/>
 </div>
 <button class="btn btn-primary" id="btn" type="submit">Submit</button>
 <!-- Create an alert component with bootstrap that is not displayed by default-->
@@ -38,8 +38,8 @@ const onLogin = (e) => {
   let password = document.getElementById("password");
 
   let user = {
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value,
+    email: email.value,
+    password: password.value,
   };
 
   fetch(API_URL + "users/login", {

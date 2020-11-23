@@ -75,37 +75,47 @@ const RegisterPage = () => {
 
 const onRegister = (e) => {
   e.preventDefault();
-  var password = document.getElementById("password").value;
-  var password2 = document.getElementById("password2").value;
-  var email = document.getElementById("email").value;
+  var password = document.getElementById("password");
+  var password2 = document.getElementById("password2");
+  var email = document.getElementById("email");
+
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   
   // Email Verification
-  if(!emailRegex.test(email)){
+  if(!emailRegex.test(email.value)){
     var error = new Error("Le format de l'email est incorrect !");
-    document.getElementById("email").classList.add('border');
-    document.getElementById("email").classList.add('border-danger');
+    email.classList.add('border');
+    email.classList.add('border-danger');
     onError(error);
   }
   else{
+    email.classList.remove('border');
+    email.classList.remove('border-danger');
     //Password verification
-    if(password!=password2){
+    if(password.value!=password2.value){
       var error = new Error("Les mots de passes ne sont pas identiques");
-      document.getElementById("password").classList.add('border');
-      document.getElementById("password").classList.add('border-danger');
-      document.getElementById("password2").classList.add('border');
-      document.getElementById("password2").classList.add('border-danger');
+      password.classList.add('border');
+      password.classList.add('border-danger');
+      password2.classList.add('border');
+      password2.classList.add('border-danger');
       onError(error);
       
     }
     else{
-
+      password.classList.remove('border');
+      password.classList.remove('border-danger');
+      password2.classList.remove('border');
+      password2.classList.remove('border-danger');
+      
       //email + password OK => register user
       let user = {
+        username: document.getElementById("username").value,
         email: document.getElementById("email").value,
         password: document.getElementById("password").value,
+        fName: document.getElementById("fName").value,
+        lName: document.getElementById("lName").value,
       };
-    
+
       fetch(API_URL + "users/", {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         body: JSON.stringify(user), // body data type must match "Content-Type" header
