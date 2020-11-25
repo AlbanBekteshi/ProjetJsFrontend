@@ -81,12 +81,9 @@ function clearErrorBox(){
   document.getElementById("email").classList.remove("border-danger");
   document.getElementById("username").classList.remove("border");
   document.getElementById("username").classList.remove("border-danger");
-  email.classList.remove('border');
-  email.classList.remove('border-danger');
-  password.classList.remove('border');
-  password.classList.remove('border-danger');
-  password2.classList.remove('border');
-  password2.classList.remove('border-danger');
+  removeErrorBoxOn(email);
+  removeErrorBoxOn(password);
+  removeErrorBoxOn(password2);
 }
 
 const onRegister = (e) => {
@@ -98,18 +95,15 @@ const onRegister = (e) => {
   
   
   // Email Verification
-  if(isEmailGoodFormat()){
+  if(isEmailGoodFormat(email)){
     
     
     //Password verification
     if(password.value!=password2.value){
       var error = new Error("Les mots de passes ne sont pas identiques");
-      password.classList.add('border');
-      password.classList.add('border-danger');
-      password2.classList.add('border');
-      password2.classList.add('border-danger');
+      addErrorBoxOn(password);
+      addErrorBoxOn(password2);
       onError(error);
-      
     }
     else{
       
@@ -157,14 +151,14 @@ const onError = (err) => {
   let errorMessage = "";
   
   if (err.message.includes("409")){
-    document.getElementById("email").classList.add("border");
-    document.getElementById("email").classList.add("border-danger");
+    var email=document.getElementById("email");
+    addErrorBoxOn(email);
     errorMessage = "This email is already used";
   }
   else{
     if(err.message.includes("410")){
-      document.getElementById("username").classList.add("border");
-      document.getElementById("username").classList.add("border-danger");
+      var username = document.getElementById("username");
+      addErrorBoxOn(username);
       errorMessage = "This username is already used";
     }
     else errorMessage = err.message;
@@ -175,8 +169,7 @@ const onError = (err) => {
   messageBoard.classList.add("d-block");
 };
 
-function isEmailGoodFormat(){
-  var email = document.getElementById("email");
+function isEmailGoodFormat(email){
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if(!emailRegex.test(email.value)){
     var error = new Error("Le format de l'email est incorrect !");
@@ -186,6 +179,15 @@ function isEmailGoodFormat(){
     return false;
   }
   return true;
+}
+
+const addErrorBoxOn = (type) =>{
+  type.classList.add('border');
+  type.classList.add('border-danger');
+}
+const removeErrorBoxOn = (type) =>{
+  type.classList.remove('border');
+  type.classList.remove('border-danger');
 }
 
 export default RegisterPage;
