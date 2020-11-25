@@ -46,19 +46,20 @@
       <!-- Page content row. 
         flex-grow-1: Fill available space 
         mb-5 : to ensure that we see all of the content of the page row -->
-      <div class="row flex-grow-1 mb-5">
-        <div class="d-none d-md-block col-md bg-dark"></div>
-        <div class="col col-md-10 mt-2">
+      <div class="row flex-grow-1 pb-2 bg-dark text-white">
+        <div class="w-100">
+
+          <!--Navbar-->
           <div id="navBar"></div>       
           
-          <h4 id="pageTitle"></h4>
+          <h2 id="pageTitle" class="col-12"></h4>
 
           <div id="page"></div>
         </div>
         <div class="d-none d-md-block col-md bg-dark"></div>
       </div>
       <!-- Footer row -->
-      <div class="row bg-dark fixed-bottom">
+      <div class="row bg-dark">
         <div class="col">
           <footer class="py-2 text-center text-white font-weight-bold">
             <h5 id="footerText"></h5>

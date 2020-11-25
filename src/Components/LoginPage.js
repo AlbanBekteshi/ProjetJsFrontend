@@ -5,8 +5,9 @@ import { getUserSessionData, setUserSessionData } from "../utils/session.js";
 import { RedirectUrl } from "./Router.js";
 import Navbar from "./Navbar.js";
 import { API_URL } from "../utils/server.js";
+import { setLayout } from "../utils/render.js";
 
-let loginPage = `<form>
+let loginPage = `<form class="col-6">
 <div class="form-group">
   <label for="username">Username</label>
   <input class="form-control" id="username" type="text" name="username" placeholder="Enter your username" required/>
@@ -21,6 +22,7 @@ let loginPage = `<form>
 </form>`;
 
 const LoginPage = () => {
+  setLayout("GIC : Login","Game Items Collection","Login Page","My footer");
   let page = document.querySelector("#page");
   page.innerHTML = loginPage;
   let loginForm = document.querySelector("form");

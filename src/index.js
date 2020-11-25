@@ -17,4 +17,4 @@ Navbar();
 
 Router();
 
-setLayout("tab",HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
+//setLayout("tab",HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);

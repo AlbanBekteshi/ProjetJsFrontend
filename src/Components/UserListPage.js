@@ -1,10 +1,12 @@
 import { RedirectUrl } from "./Router.js";
 import { getUserSessionData } from "../utils/session.js";
 import { API_URL } from "../utils/server.js";
+import { setLayout } from "../utils/render.js";
 
 let page = document.querySelector("#page");
 
 const UserListPage = () => {
+  setLayout("GIC : Users List","Game Items Collection","User List Page","My footer");
   const user = getUserSessionData();
   if (!user) RedirectUrl("/error", "Resource not authorized. Please login.");
 

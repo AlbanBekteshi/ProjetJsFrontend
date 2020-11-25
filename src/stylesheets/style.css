@@ -1,3 +1,8 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
 body {
   height: 100vh;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -10,11 +15,4 @@ a {
 /* CSS to deal with constraint validation styles */
 input:valid {
   border: 2px solid green;
-}
-
-.invisible{
-  margin: 0;
-  padding: 0;
-  width: 0;
-  height: 0;
 }
