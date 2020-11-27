@@ -26,7 +26,7 @@ const Router = () => {
     componentToRender = routes[window.location.pathname];
     if (!componentToRender)
       return ErrorPage(
-        new Error("The " + window.location.pathname + " ressource does not exist.")
+        new Error('<div class="text-center"><h3>The ' + window.location.pathname + ' ressource does not exist : /</h3> <br><a href="/" class="btn btn-info">Go back to a safe place</a></div>')
       );
     componentToRender();
   });

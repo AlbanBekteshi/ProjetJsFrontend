@@ -5,9 +5,9 @@ const Navbar = () => {
   let navbar;
   let user = getUserSessionData();    
   if (user) {
-    navbar = `<nav class="navbar navbar-expand-lg navbar-light bg-light mb-2" id="navBar">
-  <a class="navbar-brand" href="/">MyCMS</a
-  ><button
+    navbar = `<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2" id="navBar">
+    <a class="navbar-brand" href="/"><img src="" width="32" height="32" alt="Logo"></a>
+    <button
     class="navbar-toggler"
     type="button"
     data-toggle="collapse"
@@ -29,16 +29,16 @@ const Navbar = () => {
   </nav>`;
   } else {
     navbar = `<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
-  <a class="navbar-brand" href="/"><img src="" width="32" height="32" alt="Logo"></a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarNavAltMarkup"
-    aria-controls="navbarNavAltMarkup"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+    <a class="navbar-brand" href="/"><img src="" width="32" height="32" alt="Logo"></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse flex-grow-1 text-right" id="navbarNavAltMarkup">
