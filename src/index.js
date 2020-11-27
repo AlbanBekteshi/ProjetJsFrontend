@@ -1,5 +1,5 @@
 import { setLayout } from "./utils/render.js";
-import HomePage from "./Components/HomePage.js";
+import ItemsPage from "./Components/ItemsPage.js";
 import {Router} from "./Components/Router.js";
 import Navbar from "./Components/Navbar.js";
 /* use webpack style & css loader*/
