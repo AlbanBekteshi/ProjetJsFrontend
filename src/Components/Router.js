@@ -1,13 +1,17 @@
+import HomePage from "./HomePage.js";
 import ItemsPage from "./ItemsPage.js";
 import UserListPage from "./UserListPage.js";
+import UserPage from "./UserPage.js";
 import LoginPage from "./LoginPage.js";
 import RegisterPage from "./RegisterPage.js";
 import LogoutComponent from "./LogoutComponent.js";
 import ErrorPage from "./ErrorPage.js";
 
 const routes = {
-  "/": ItemsPage,
+  "/": HomePage,
+  "/items": ItemsPage,
   "/list": UserListPage,
+  "/user": UserPage,
   "/login": LoginPage,
   "/register": RegisterPage,
   "/logout": LogoutComponent,
@@ -39,7 +43,13 @@ const Router = () => {
       if (e.target.text === "Home" || e.target.text === "MyCMS") {
         uri = "/";
       } else {
-        uri = "/" + e.target.text.toLowerCase();
+        if(e.target.text === 'Profil'){
+          uri="/user";
+        }
+        else{
+          uri = "/" + e.target.text.toLowerCase();
+        }
+        
       }
     }
     if (uri) {
@@ -60,7 +70,7 @@ const Router = () => {
       if (routes[uri]) {
         componentToRender();
       } else {
-        ErrorPage(new Error("The " + uri + " ressource does not exist"));
+        ErrorPage(new Error('<div class="text-center"><h3>The ' + window.location.pathname + ' ressource does not exist : /</h3> <br><a href="/" class="btn btn-info">Go back to a safe place</a></div>'));
       }
     }
   };

@@ -5,12 +5,12 @@ import { setLayout } from "../utils/render.js";
 
 let page = document.querySelector("#page");
 
-const UserListPage = () => {
-  setLayout("GIC : Users List","Game Items Collection","User List Page","My footer");
+const UserPage = () => {
+  setLayout("GIC : Users Page ","Game Items Collection","Profil Page","My footer");
   const user = getUserSessionData();
   if (!user) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
 
-  fetch(API_URL + "users", {
+  fetch(API_URL + "users/"+user.username, {
     method: "GET",
     headers: {
       Authorization: user.token,
@@ -33,23 +33,22 @@ const UserListPage = () => {
     })
     .then((data) => {
       if (typeof data === "string") onError(data);
-      else onUserList(data);
+      else onUserPage(data);
     })
     .catch((err) => onError(err));
 };
 
-const onUserList = (data) => {
-  console.log("onUserList");
-  let userListPage = `<h5>List of MyCMS users</h5>
-<ul class="list-group list-group-horizontal-lg">`;
-  let userList = document.querySelector("ul");
-  // Neat way to loop through all data in the array, create a new array of string elements (HTML li tags)
-  // with map(), and create one string from the resulting array with join(''). '' means that the separator is a void string.
-  userListPage += data
-    .map((user) => `<li class="list-group-item bg-dark text-white">${user.username}</li>`)
-    .join("");
-  userListPage += "</ul>";
-  return (page.innerHTML = '<div class="col-12">'+userListPage+"</div>");
+const onUserPage = (data) => {
+    setLayout("GIC : Profil de  "+data.username,"Game Items Collection",`Mon profil`,"My footer");
+    console.log(data);
+    let userListPage = `<ul class="list-group list-group-horizontal-lg">`;
+    let userList = document.querySelector("ul");
+    // Neat way to loop through all data in the array, create a new array of string elements (HTML li tags)
+    // with map(), and create one string from the resulting array with join(''). '' means that the separator is a void string.
+    userListPage += data
+        
+    userListPage += "</ul>";
+    return (page.innerHTML = '<div class="col-12">'+userListPage+"</div>");
 };
 
 const onError = (err) => {
@@ -63,4 +62,4 @@ const onError = (err) => {
   RedirectUrl("/error", errorMessage);
 };
 
-export default UserListPage;
+export default UserPage;

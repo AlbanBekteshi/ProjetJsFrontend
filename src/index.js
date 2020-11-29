@@ -1,5 +1,3 @@
-import { setLayout } from "./utils/render.js";
-import ItemsPage from "./Components/ItemsPage.js";
 import {Router} from "./Components/Router.js";
 import Navbar from "./Components/Navbar.js";
 /* use webpack style & css loader*/
@@ -16,5 +14,3 @@ const FOOTER_TEXT = "Footer Page";
 Navbar();
 
 Router();
-
-//setLayout("tab",HEADER_TITLE, PAGE_TITLE, FOOTER_TEXT);
