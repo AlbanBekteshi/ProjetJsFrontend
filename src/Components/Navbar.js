@@ -20,10 +20,10 @@ const Navbar = () => {
   </button>
   <div class="collapse navbar-collapse flex-grow-1 text-right" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto flew-nowrap">
-      <a class="nav-item nav-link" href="#">Home</a>    
-      <a class="nav-item nav-link" href="#">List</a>
-      <a class="nav-item nav-link" href="">Profil</a>
-      <a class="nav-item nav-link" href="#">Logout</a>
+      <a class="nav-item nav-link text-white" href="#">Home</a>    
+      <a class="nav-item nav-link text-white" href="#">List</a>
+      <a class="nav-item nav-link text-white" href="">Profil</a>
+      <a class="nav-item nav-link text-white" href="#">Logout</a>
     </div>
   </div>
   </nav>`;

@@ -6,7 +6,6 @@ import { setLayout } from "../utils/render.js";
 let page = document.querySelector("#page");
 
 const UserPage = () => {
-  setLayout("GIC : Users Page ","Game Items Collection","Profil Page","My footer");
   const user = getUserSessionData();
   if (!user) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
 
@@ -41,14 +40,112 @@ const UserPage = () => {
 const onUserPage = (data) => {
     setLayout("GIC : Profil de  "+data.username,"Game Items Collection",`Mon profil`,"My footer");
     console.log(data);
-    let userListPage = `<ul class="list-group list-group-horizontal-lg">`;
-    let userList = document.querySelector("ul");
-    // Neat way to loop through all data in the array, create a new array of string elements (HTML li tags)
-    // with map(), and create one string from the resulting array with join(''). '' means that the separator is a void string.
-    userListPage += data
-        
-    userListPage += "</ul>";
-    return (page.innerHTML = '<div class="col-12">'+userListPage+"</div>");
+    let userPage = `
+        <!--Photo de profil-->
+        <div class="row col-12 mt-4">
+            <div class="col-sm-12 col-md-5 mb-3 mb-md-0">
+                <img src="https://source.unsplash.com/300x300" class="rounded mx-auto d-block" alt="Profile picture">
+            </div>
+            <!--Photo de profil-->
+            <div class="col-sm-12 col-md-7 my-auto">
+                <h5 class="text-underline">Username : ${data.username}</h5><br>
+                <h5 class="text-underline">Email : ${data.email}</h5><br>
+                <h5 class="text-underline">Nom : ${data.lName}</h5><br>
+                <h5 class="text-underline">Prénom : ${data.fName}</h5><br>
+            </div>
+        </div>
+
+        <h3 class="col-sm-12">Mes items</h3>
+
+        <div class="row mt-3 col-12 pl-3">
+
+            <div class="col-md-3 col-sm-12">
+                <div class="card bg-secondary p-1 mb-2">
+                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Item Name</h5>
+                        <p class="card-text">
+                            <u>Jeu :</u> Nom du jeu <br>
+                            <u>Description :</u> Desc de l'item <br>
+                            <u>Prix :</u> prix de l'item<br>
+                        </p>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <div class="card bg-secondary p-1 mb-2">
+                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Item Name</h5>
+                        <p class="card-text">
+                            <u>Jeu :</u> Nom du jeu <br>
+                            <u>Description :</u> Desc de l'item <br>
+                            <u>Prix :</u> prix de l'item<br>
+                        </p>
+                    </div>
+                </div>  
+            </div>
+            
+            <div class="col-md-3 col-sm-12">
+                <div class="card bg-secondary p-1 mb-2">
+                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Item Name</h5>
+                        <p class="card-text">
+                            <u>Jeu :</u> Nom du jeu <br>
+                            <u>Description :</u> Desc de l'item <br>
+                            <u>Prix :</u> prix de l'item<br>
+                        </p>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <div class="card bg-secondary p-1 mb-2">
+                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Item Name</h5>
+                        <p class="card-text">
+                            <u>Jeu :</u> Nom du jeu <br>
+                            <u>Description :</u> Desc de l'item <br>
+                            <u>Prix :</u> prix de l'item<br>
+                        </p>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <div class="card bg-secondary p-1 mb-2">
+                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Item Name</h5>
+                        <p class="card-text">
+                            <u>Jeu :</u> Nom du jeu <br>
+                            <u>Description :</u> Desc de l'item <br>
+                            <u>Prix :</u> prix de l'item<br>
+                        </p>
+                    </div>
+                </div>  
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <div class="card bg-secondary p-1 mb-2">
+                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">Item Name</h5>
+                        <p class="card-text">
+                            <u>Jeu :</u> Nom du jeu <br>
+                            <u>Description :</u> Desc de l'item <br>
+                            <u>Prix :</u> prix de l'item<br>
+                        </p>
+                    </div>
+                </div>  
+            </div>
+
+        </div>
+    `;
+    return (page.innerHTML = userPage);
 };
 
 const onError = (err) => {
