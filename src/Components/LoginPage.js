@@ -86,7 +86,7 @@ const onUserLogin = (userData) => {
   setUserSessionData(user);
   // re-render the navbar for the authenticated user
   Navbar();
-  RedirectUrl("/list");
+  RedirectUrl("/");
 };
 
 const onError = (err) => {

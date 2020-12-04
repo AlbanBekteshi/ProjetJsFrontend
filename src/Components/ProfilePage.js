@@ -9,7 +9,8 @@ const UserPage = () => {
   const user = getUserSessionData();
   if (!user) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
 
-  fetch(API_URL + "users/"+user.username, {
+  // get current user
+  fetch(API_URL + "users/"+user.idUser, {
     method: "GET",
     headers: {
       Authorization: user.token,
@@ -39,7 +40,7 @@ const UserPage = () => {
 
 const onUserPage = (data) => {
     setLayout("GIC : Profil de  "+data.username,"Game Items Collection",`Mon profil`,"My footer");
-    console.log(data);
+    console.log(data.itemCollections);
     let userPage = `
         <!--Photo de profil-->
         <div class="row col-12 mt-4">
@@ -58,7 +59,7 @@ const onUserPage = (data) => {
         <h3 class="col-sm-12">Mes items</h3>
 
         <div class="row mt-3 col-12 pl-3">
-
+            
             <div class="col-md-3 col-sm-12">
                 <div class="card bg-secondary p-1 mb-2">
                     <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">

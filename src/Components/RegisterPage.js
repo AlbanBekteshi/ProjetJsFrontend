@@ -23,11 +23,11 @@ let registerPage = `<form class="col-12">
 </div>
 
 <div class="row">
-  <div class="form-group col-md-12 col-lg-6">
+  <div class="form-group col-md-12 col-lg-6 mb-0">
     <label for="password">Password</label>
     <input class="form-control" id="password" type="password" name="password" placeholder="Enter your password" required/>
   </div>
-  <div class="form-group col-md-12 col-lg-6">
+  <div class="form-group col-md-12 col-lg-6 mb-0">
     <label for="password2">Password</label>
     <input class="form-control" id="password2" type="password" name="password2" placeholder="Repeat your password" required/>
     <div class="invisible" id="errorPassword">test</div>

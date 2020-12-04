@@ -1,17 +1,16 @@
 import HomePage from "./HomePage.js";
 import ItemsPage from "./ItemsPage.js";
 import UserListPage from "./UserListPage.js";
-import UserPage from "./UserPage.js";
+import UserPage from "./ProfilePage.js";
 import LoginPage from "./LoginPage.js";
 import RegisterPage from "./RegisterPage.js";
 import LogoutComponent from "./LogoutComponent.js";
 import ErrorPage from "./ErrorPage.js";
 
 const routes = {
-  "/": HomePage,
-  "/items": ItemsPage,
+  "/": ItemsPage,
   "/list": UserListPage,
-  "/user": UserPage,
+  "/profil": UserPage,
   "/login": LoginPage,
   "/register": RegisterPage,
   "/logout": LogoutComponent,
@@ -44,7 +43,7 @@ const Router = () => {
         uri = "/";
       } else {
         if(e.target.text === 'Profil'){
-          uri="/user";
+          uri="/profil";
         }
         else{
           uri = "/" + e.target.text.toLowerCase();
