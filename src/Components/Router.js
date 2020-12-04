@@ -9,7 +9,7 @@ import ErrorPage from "./ErrorPage.js";
 
 const routes = {
   "/": ItemsPage,
-  "/list": UserListPage,
+  //"/list": UserListPage,
   "/profil": UserPage,
   "/login": LoginPage,
   "/register": RegisterPage,
@@ -25,7 +25,7 @@ let componentToRender;
 const Router = () => {
   /* manage to route the right component when the page is loaded */
   window.addEventListener("load", (e) => {
-    console.log("onload page:", [window.location.pathname]);
+    //console.log("onload page:", [window.location.pathname]);
     componentToRender = routes[window.location.pathname];
     if (!componentToRender)
       return ErrorPage(
@@ -39,7 +39,7 @@ const Router = () => {
     let uri;
     if (e.target.tagName === "A") {
       e.preventDefault();
-      if (e.target.text === "Home" || e.target.text === "MyCMS") {
+      if (e.target.text === "Home") {
         uri = "/";
       } else {
         if(e.target.text === 'Profil'){
@@ -52,14 +52,14 @@ const Router = () => {
       }
     }
     if (uri) {
-      console.log(
-        "onNavigate() uri:",
-        uri,
-        " location:",
-        window.location.pathname,
-        " origin :",
-        window.location.origin
-      );
+      //console.log(
+      //  "onNavigate() uri:",
+      //  uri,
+      //  " location:",
+      //  window.location.pathname,
+      //  " origin :",
+      //  window.location.origin
+      //);
       // use Web History API to add current page URL to the user's navigation history & set right URL in the browser (instead of "#")
       window.history.pushState({}, uri, window.location.origin + uri);
       // render the requested component
