@@ -5,7 +5,7 @@ import { setLayout } from "../utils/render.js";
 
 let page = document.querySelector("#page");
 
-const UserPage = () => {
+const ProfilPage = () => {
   const user = getUserSessionData();
   if (!user) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
 
@@ -40,7 +40,7 @@ const UserPage = () => {
 
 const onUserPage = (data) => {
     setLayout("GIC : Profil de  "+data.username,"Game Items Collection",`Mon profil`,"My footer");
-    console.log(data.itemCollections);
+    let listItems = [];
     let userPage = `
         <!--Photo de profil-->
         <div class="row col-12 mt-4">
@@ -58,92 +58,73 @@ const onUserPage = (data) => {
 
         <h3 class="col-sm-12">Mes items</h3>
 
-        <div class="row mt-3 col-12 pl-3">
-            
-            <div class="col-md-3 col-sm-12">
-                <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Item Name</h5>
-                        <p class="card-text">
-                            <u>Jeu :</u> Nom du jeu <br>
-                            <u>Description :</u> Desc de l'item <br>
-                            <u>Prix :</u> prix de l'item<br>
-                        </p>
-                    </div>
-                </div>  
-            </div>
+        <div class="row mt-3 col-12 pl-3">`;
+        let itemList = data.itemCollections;
+        console.log(itemList);
 
-            <div class="col-md-3 col-sm-12">
-                <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Item Name</h5>
-                        <p class="card-text">
-                            <u>Jeu :</u> Nom du jeu <br>
-                            <u>Description :</u> Desc de l'item <br>
-                            <u>Prix :</u> prix de l'item<br>
-                        </p>
-                    </div>
-                </div>  
-            </div>
-            
-            <div class="col-md-3 col-sm-12">
-                <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Item Name</h5>
-                        <p class="card-text">
-                            <u>Jeu :</u> Nom du jeu <br>
-                            <u>Description :</u> Desc de l'item <br>
-                            <u>Prix :</u> prix de l'item<br>
-                        </p>
-                    </div>
-                </div>  
-            </div>
+        itemList.forEach(item => {
+            fetch(API_URL+"items/"+item,{
+                method:"GET",
+            }).then((response) => {
+                if (!response.ok) {
+                  let fullErrorMessage =
+                    " Error code : " +
+                    response.status +
+                    " : " +
+                    response.statusText +
+                    "/nMessage : ";
+                  return response.text().then((errorMessage) => {
+                    fullErrorMessage += errorMessage;
+                    return fullErrorMessage;
+                  });
+                }
+                return response.json();
+              })
+              .then((itemFetch) => {
+                if (typeof itemFetch === "string") onError(data);
+                else {
+                    console.log("itemFetch");
+                    console.log(itemFetch);
+                    if(listItems.push(itemFetch)) console.log("ajout effectué");
+                    userPage+=`
+                        <div class="col-md-3 col-sm-12">
+                            <div class="card bg-secondary p-1 mb-2">
+                                <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                                <div class="card-body">
+                                    <h5 class="card-title font-weight-bold">Item Name</h5>
+                                    <p class="card-text">
+                                        <u>Jeu :</u> Nom du jeu <br>
+                                        <u>Description :</u> Desc de l'item <br>
+                                        <u>Prix :</u> prix de l'item<br>
+                                    </p>
+                                </div>
+                            </div>  
+                        </div>
+                    `;
+                    console.log(listItems.length);
+                }
+              })
+              .catch((err) => onError(err));
+        });
 
-            <div class="col-md-3 col-sm-12">
-                <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Item Name</h5>
-                        <p class="card-text">
-                            <u>Jeu :</u> Nom du jeu <br>
-                            <u>Description :</u> Desc de l'item <br>
-                            <u>Prix :</u> prix de l'item<br>
-                        </p>
-                    </div>
-                </div>  
-            </div>
-
-            <div class="col-md-3 col-sm-12">
-                <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Item Name</h5>
-                        <p class="card-text">
-                            <u>Jeu :</u> Nom du jeu <br>
-                            <u>Description :</u> Desc de l'item <br>
-                            <u>Prix :</u> prix de l'item<br>
-                        </p>
-                    </div>
-                </div>  
-            </div>
-
-            <div class="col-md-3 col-sm-12">
-                <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">Item Name</h5>
-                        <p class="card-text">
-                            <u>Jeu :</u> Nom du jeu <br>
-                            <u>Description :</u> Desc de l'item <br>
-                            <u>Prix :</u> prix de l'item<br>
-                        </p>
-                    </div>
-                </div>  
-            </div>
-
+        console.log(listItems.length);
+        /*
+        <div class="col-md-3 col-sm-12">
+            <div class="card bg-secondary p-1 mb-2">
+                <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Item Name</h5>
+                    <p class="card-text">
+                        <u>Jeu :</u> Nom du jeu <br>
+                        <u>Description :</u> Desc de l'item <br>
+                        <u>Prix :</u> prix de l'item<br>
+                    </p>
+                </div>
+            </div>  
+        </div>
+        */
+           
+    userPage+=`
         </div>
     `;
     return (page.innerHTML = userPage);
@@ -160,4 +141,4 @@ const onError = (err) => {
   RedirectUrl("/error", errorMessage);
 };
 
-export default UserPage;
+export default ProfilPage;
