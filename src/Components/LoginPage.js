@@ -5,11 +5,12 @@ import { getUserSessionData, setUserSessionData } from "../utils/session.js";
 import { RedirectUrl } from "./Router.js";
 import Navbar from "./Navbar.js";
 import { API_URL } from "../utils/server.js";
+import { setLayout } from "../utils/render.js";
 
-let loginPage = `<form>
+let loginPage = `<form class="col-6">
 <div class="form-group">
   <label for="username">Username</label>
-  <input class="form-control" id="email" type="text" name="email" placeholder="Enter your username" required/>
+  <input class="form-control" id="username" type="text" name="username" placeholder="Enter your username" required/>
 </div>
 <div class="form-group">
   <label for="password">Password</label>
@@ -21,6 +22,7 @@ let loginPage = `<form>
 </form>`;
 
 const LoginPage = () => {
+  setLayout("GIC : Login","Game Items Collection","Login Page","My footer");
   let page = document.querySelector("#page");
   page.innerHTML = loginPage;
   let loginForm = document.querySelector("form");
@@ -34,30 +36,48 @@ const LoginPage = () => {
 
 const onLogin = (e) => {
   e.preventDefault();
-  let email = document.getElementById("email");
+  let username = document.getElementById("username");
   let password = document.getElementById("password");
 
-  let user = {
-    email: email.value,
-    password: password.value,
-  };
+  // remove Error Borders
+  removeErrorBoxOn(username);
+  removeErrorBoxOn(password);
 
-  fetch(API_URL + "users/login", {
-    method: "POST", // *GET, POST, PUT, DELETE, etc.
-    body: JSON.stringify(user), // body data type must match "Content-Type" header
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(
-          "Error code : " + response.status + " : " + response.statusText
-        );
-      return response.json();
+  if(username.value == '' || password.value ==''){
+    if(password.value==''){
+      addErrorBoxOn(password);
+      var error= new Error("mdp être remplis !");
+      onError(error);
+    }
+    if(username.value==''){
+      addErrorBoxOn(username);
+      var error= new Error("user être remplis !");
+      onError(error);
+    }
+  }
+  else{
+    let user = {
+      username: username.value,
+      password: password.value,
+    };
+  
+    fetch(API_URL + "users/login", {
+      method: "POST", // *GET, POST, PUT, DELETE, etc.
+      body: JSON.stringify(user), // body data type must match "Content-Type" header
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
-    .then((data) => onUserLogin(data))
-    .catch((err) => onError(err));
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(
+            "Error code : " + response.status + " : " + response.statusText
+          );
+        return response.json();
+      })
+      .then((data) => onUserLogin(data))
+      .catch((err) => onError(err));
+  }
 };
 
 const onUserLogin = (userData) => {
@@ -66,17 +86,32 @@ const onUserLogin = (userData) => {
   setUserSessionData(user);
   // re-render the navbar for the authenticated user
   Navbar();
-  RedirectUrl("/list");
+  RedirectUrl("/");
 };
 
 const onError = (err) => {
   let messageBoard = document.querySelector("#messageBoard");
   let errorMessage = "";
-  if (err.message.includes("401")) errorMessage = "Wrong username or password.";
+  if (err.message.includes("401")){
+    errorMessage = "Wrong username or password.";
+    var username = document.getElementById("username");
+    var password = document.getElementById("password");
+    addErrorBoxOn(username);
+    addErrorBoxOn(password);
+  } 
   else errorMessage = err.message;
   messageBoard.innerText = errorMessage;
   // show the messageBoard div (add relevant Bootstrap class)
   messageBoard.classList.add("d-block");
 };
+
+const addErrorBoxOn = (type) =>{
+  type.classList.add('border');
+  type.classList.add('border-danger');
+}
+const removeErrorBoxOn = (type) =>{
+  type.classList.remove('border');
+  type.classList.remove('border-danger');
+}
 
 export default LoginPage;

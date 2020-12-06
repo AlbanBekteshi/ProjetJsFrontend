@@ -1,13 +1,16 @@
 import HomePage from "./HomePage.js";
+import ItemsPage from "./ItemsPage.js";
 import UserListPage from "./UserListPage.js";
+import UserPage from "./ProfilePage.js";
 import LoginPage from "./LoginPage.js";
 import RegisterPage from "./RegisterPage.js";
 import LogoutComponent from "./LogoutComponent.js";
 import ErrorPage from "./ErrorPage.js";
 
 const routes = {
-  "/": HomePage,
-  "/list": UserListPage,
+  "/": ItemsPage,
+  //"/list": UserListPage,
+  "/profil": UserPage,
   "/login": LoginPage,
   "/register": RegisterPage,
   "/logout": LogoutComponent,
@@ -22,11 +25,11 @@ let componentToRender;
 const Router = () => {
   /* manage to route the right component when the page is loaded */
   window.addEventListener("load", (e) => {
-    console.log("onload page:", [window.location.pathname]);
+    //console.log("onload page:", [window.location.pathname]);
     componentToRender = routes[window.location.pathname];
     if (!componentToRender)
       return ErrorPage(
-        new Error("The " + window.location.pathname + " ressource does not exist.")
+        new Error('<div class="text-center"><h3>The ' + window.location.pathname + ' ressource does not exist : /</h3> <br><a href="/" class="btn btn-info">Go back to a safe place</a></div>')
       );
     componentToRender();
   });
@@ -36,21 +39,27 @@ const Router = () => {
     let uri;
     if (e.target.tagName === "A") {
       e.preventDefault();
-      if (e.target.text === "Home" || e.target.text === "MyCMS") {
+      if (e.target.text === "Home") {
         uri = "/";
       } else {
-        uri = "/" + e.target.text.toLowerCase();
+        if(e.target.text === 'Profil'){
+          uri="/profil";
+        }
+        else{
+          uri = "/" + e.target.text.toLowerCase();
+        }
+        
       }
     }
     if (uri) {
-      console.log(
-        "onNavigate() uri:",
-        uri,
-        " location:",
-        window.location.pathname,
-        " origin :",
-        window.location.origin
-      );
+      //console.log(
+      //  "onNavigate() uri:",
+      //  uri,
+      //  " location:",
+      //  window.location.pathname,
+      //  " origin :",
+      //  window.location.origin
+      //);
       // use Web History API to add current page URL to the user's navigation history & set right URL in the browser (instead of "#")
       window.history.pushState({}, uri, window.location.origin + uri);
       // render the requested component
@@ -60,7 +69,7 @@ const Router = () => {
       if (routes[uri]) {
         componentToRender();
       } else {
-        ErrorPage(new Error("The " + uri + " ressource does not exist"));
+        ErrorPage(new Error('<div class="text-center"><h3>The ' + window.location.pathname + ' ressource does not exist : /</h3> <br><a href="/" class="btn btn-info">Go back to a safe place</a></div>'));
       }
     }
   };

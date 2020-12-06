@@ -1,12 +1,14 @@
 import { RedirectUrl } from "./Router.js";
 import { getUserSessionData } from "../utils/session.js";
 import { API_URL } from "../utils/server.js";
+import { setLayout } from "../utils/render.js";
 
 let page = document.querySelector("#page");
 
 const UserListPage = () => {
+  setLayout("GIC : Users List","Game Items Collection","User List Page","My footer");
   const user = getUserSessionData();
-  if (!user) RedirectUrl("/error", "Resource not authorized. Please login.");
+  if (!user) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
 
   fetch(API_URL + "users", {
     method: "GET",
@@ -44,10 +46,10 @@ const onUserList = (data) => {
   // Neat way to loop through all data in the array, create a new array of string elements (HTML li tags)
   // with map(), and create one string from the resulting array with join(''). '' means that the separator is a void string.
   userListPage += data
-    .map((user) => `<li class="list-group-item">${user.username}</li>`)
+    .map((user) => `<li class="list-group-item bg-dark text-white">${user.username}</li>`)
     .join("");
   userListPage += "</ul>";
-  return (page.innerHTML = userListPage);
+  return (page.innerHTML = '<div class="col-12">'+userListPage+"</div>");
 };
 
 const onError = (err) => {
