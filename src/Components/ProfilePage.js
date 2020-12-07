@@ -97,7 +97,7 @@ const onUserPage = (user,items) => {
         if(items[0]!=null){
           items.forEach(item => {
             userPage+=`
-              <div class="col-md-3 col-sm-12">
+              <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                 <div class="card bg-secondary p-1 mb-2">
                     <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
                     <div class="card-body">
