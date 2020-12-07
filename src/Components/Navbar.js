@@ -8,7 +8,7 @@ const Navbar = () => {
   let user = getUserSessionData();    
   if (user) {
     navbar = `<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
-    <a class="navbar-brand" href="/"><img src="${gicLogo}" alt="Logo"></a>
+    <a class="navbar-brand" href="/"><img src="${gicLogo}" width="64" height="64" alt="Logo"></a>
     <button
     class="navbar-toggler"
     type="button"
@@ -31,7 +31,7 @@ const Navbar = () => {
   } else {
     navbar = `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
-      <a class="navbar-brand" href="/"><img src="${gicLogo}" width="32" height="32" alt="Logo"></a>
+      <a class="navbar-brand" href="/"><img src="${gicLogo}" width="64" height="64" alt="Logo"></a>
       <button
         class="navbar-toggler"
         type="button"
