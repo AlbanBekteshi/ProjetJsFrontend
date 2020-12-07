@@ -71,7 +71,7 @@ const RegisterPage = () => {
   if (user) {
     // re-render the navbar for the authenticated user
     Navbar();
-    RedirectUrl("/list");
+    RedirectUrl("/");
   }
   else{
     registerForm.addEventListener("submit", onRegister);

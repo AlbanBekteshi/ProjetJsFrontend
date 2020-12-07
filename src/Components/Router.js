@@ -9,7 +9,6 @@ import ErrorPage from "./ErrorPage.js";
 
 const routes = {
   "/": ItemsPage,
-  //"/list": UserListPage,
   "/profil": UserPage,
   "/login": LoginPage,
   "/register": RegisterPage,

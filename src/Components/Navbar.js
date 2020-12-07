@@ -1,6 +1,6 @@
 let navBar = document.querySelector("#navBar");
 import {getUserSessionData} from "../utils/session.js";
-import gicLogo from "./../images/logo.png";
+import gicLogo from "./../images/public/logo.png";
 
 // destructuring assignment
 const Navbar = () => {
