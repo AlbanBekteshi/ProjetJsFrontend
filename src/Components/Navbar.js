@@ -1,12 +1,14 @@
 let navBar = document.querySelector("#navBar");
 import {getUserSessionData} from "../utils/session.js";
+import gicLogo from "./../images/logo.png";
+
 // destructuring assignment
 const Navbar = () => {
   let navbar;
   let user = getUserSessionData();    
   if (user) {
     navbar = `<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
-    <a class="navbar-brand" href="/"><img src="" width="32" height="32" alt="Logo"></a>
+    <a class="navbar-brand" href="/"><img src="${gicLogo}" alt="Logo"></a>
     <button
     class="navbar-toggler"
     type="button"
@@ -29,7 +31,7 @@ const Navbar = () => {
   } else {
     navbar = `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
-      <a class="navbar-brand" href="/"><img src="" width="32" height="32" alt="Logo"></a>
+      <a class="navbar-brand" href="/"><img src="${gicLogo}" width="32" height="32" alt="Logo"></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -43,9 +45,9 @@ const Navbar = () => {
       </button>
       <div class="collapse navbar-collapse flex-grow-1 text-right" id="navbarNavAltMarkup">
         <div class="navbar-nav ml-auto flew-nowrap">
-          <a class="nav-item nav-link" href="#">Home</a>
-          <a class="nav-item nav-link" href="#">Register</a>
-          <a class="nav-item nav-link" href="#">Login</a> 
+          <a class="nav-item nav-link" href="">Home</a>
+          <a class="nav-item nav-link" href="">Register</a>
+          <a class="nav-item nav-link" href="">Login</a> 
         </div>
       </div>
     </nav>`;
