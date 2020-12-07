@@ -31,29 +31,35 @@ const onItemsPage = (data) => {
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
     console.log("liste de tous les items");
     console.log(data);
-    let jeuxSelectionner ="CSGO";
 
-    let RealPage =`<div class="container-fluide"><div class="row">`;
+    let jeuxSelectionner ="";
+    let RealPage =`<div class="container-fluid"><div class="row">`;
     let SelectGame =`<div class=" col-2" id="itemsDivContainer">`;
     let HomeItemsPage =`<div class="row mt-3 col-10" id="itemsDivContainer">`;
-
+    let button;
 
     //Fait un Distinct de tout les jeux different
     const result = Array.from (new Set(data.map( s => s.jeu)))
         .map(jeu =>{
             return {jeu:jeu};
         });
-    console.log(result);
 
     SelectGame +=`<div class="container"><div class="btn-group-vertical">`;
+
     result.forEach(truc=> {
         SelectGame +=`
-                <button type="button" class="btn btn-primary" >${truc.jeu} </button>`;
-
+                <button type="button" class="btn btn-primary" id="${truc.jeu}">${truc.jeu} </button>`;
+        var getId = "'"+truc.jeu+"'";
+        console.log(getId);
+        console.log(document.getElementById(getId));
+        button = document.querySelector(`${truc.jeu}`);
+        console.log(button);
+        //buttone.addEventListener("click",function (){
+        //    jeuxSelectionner = "";
+       // });
     });
-
-    console.log(jeuxSelectionner);
     SelectGame+= `</div></div></div>`;
+
     if(jeuxSelectionner===""){
         data.forEach(item => {
                 HomeItemsPage+=`
@@ -95,6 +101,7 @@ const onItemsPage = (data) => {
         });
 
     }
+
 
 
     HomeItemsPage+= `</div>`;
