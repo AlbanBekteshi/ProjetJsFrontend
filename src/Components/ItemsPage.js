@@ -31,8 +31,24 @@ const onItemsPage = (data) => {
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
     console.log("liste de tous les items");
     console.log(data);
-    let HomeItemsPage =`<div class="row mt-3 col-12" id="itemsDivContainer">`;
-    
+    let RealPage =`<div class="container-fluide"><div class="row">`;
+    let SelectGame =`<div class=" col-2" id="itemsDivContainer">`;
+    let HomeItemsPage =`<div class="row mt-3 col-10" id="itemsDivContainer">`;
+
+    //Fait un Distinct de tout les jeux different
+    const result = Array.from (new Set(data.map( s => s.jeu)))
+        .map(jeu =>{
+            return {jeu:jeu};
+        });
+    console.log(result);
+
+    SelectGame +=`<div class="container"><div class="btn-group-vertical">`;
+    result.forEach(truc=> {
+        SelectGame +=`
+                <button type="button" class="btn btn-primary ">${truc.jeu} </button>`
+    });
+
+    SelectGame+= `</div></div></div>`;
     data.forEach(item => {
         HomeItemsPage+=`
         <div class="col-lg-2 col-md-3 col-sm-6">
@@ -50,10 +66,10 @@ const onItemsPage = (data) => {
             </div>
         `;
     });   
-    
-    HomeItemsPage+= `</div>`;
 
-    page.innerHTML = HomeItemsPage;
+    HomeItemsPage+= `</div>`;
+    RealPage+= SelectGame +HomeItemsPage +`</div></div>`;
+    page.innerHTML = RealPage;
 };
 
 export default ItemsPage;
