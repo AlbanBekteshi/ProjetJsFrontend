@@ -4,7 +4,7 @@ import { setUserSessionData,getUserSessionData } from "../utils/session.js";
 import { setLayout } from "../utils/render.js";
 
 let page = document.querySelector("#page");
-
+let jeuxSelectionner = "";
 const ItemsPage =() =>{
     fetch(API_URL + "items", {
         method: "GET",
@@ -28,7 +28,7 @@ const onItemsPage = (data) => {
     console.log("liste de tous les items");
     console.log(data);
 
-    let jeuxSelectionner ="";
+
     let RealPage =`<div class="container-fluid"><div class="row">`;
     let SelectGame =`<div class=" col-2" id="itemsDivContainer">`;
     let HomeItemsPage =`<div class="row mt-3 col-10" id="itemsDivContainer">`;
@@ -39,20 +39,12 @@ const onItemsPage = (data) => {
         .map(jeu =>{
             return {jeu:jeu};
         });
-
+    console.log(result);
     SelectGame +=`<div class="container"><div class="btn-group-vertical">`;
 
     result.forEach(truc=> {
         SelectGame +=`
                 <button type="button" class="btn btn-primary" id="${truc.jeu}">${truc.jeu} </button>`;
-        var getId = "'"+truc.jeu+"'";
-        console.log(getId);
-        console.log(document.getElementById(getId));
-        button = document.querySelector(`${truc.jeu}`);
-        console.log(button);
-        //buttone.addEventListener("click",function (){
-        //    jeuxSelectionner = "";
-       // });
     });
     SelectGame+= `</div></div></div>`;
 
@@ -103,6 +95,36 @@ const onItemsPage = (data) => {
     HomeItemsPage+= `</div>`;
     RealPage+= SelectGame +HomeItemsPage +`</div></div>`;
     page.innerHTML = RealPage;
+
+
+    fetch(API_URL+"items",{
+        method:"GET",
+    }).then((response) => {
+        if (!response.ok) {
+            let fullErrorMessage = "Error code : " + response.status + ":" + response.statusText + "/nMessage : ";
+            return response.text().then((errorMessage) => {
+                fullErrorMessage += errorMessage;
+                return fullErrorMessage;
+            })
+        }
+        return response.json();
+    })
+        .then((data) => {
+            const result = Array.from (new Set(data.map( s => s.jeu)))
+            .map(jeu =>{
+                return {jeu:jeu};
+            });
+
+        result.forEach(jeuxChange =>{
+            button = document.getElementById(jeuxChange.jeu).onclick = function () {changerJeux(jeuxChange.jeu)};
+        })
+        })
+        .catch();
+
+    function  changerJeux(nomJeux){
+        jeuxSelectionner = nomJeux;
+        ItemsPage();
+    }
 };
 
 
