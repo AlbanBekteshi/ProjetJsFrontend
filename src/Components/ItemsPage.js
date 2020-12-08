@@ -6,10 +6,6 @@ import { setLayout } from "../utils/render.js";
 let page = document.querySelector("#page");
 
 const ItemsPage =() =>{
-    
-    //const user = getUserSessionData();
-    //if (!user) RedirectUrl("/error", '<div class="text-center">Resource not authorized. Please <a href="/login" class="btn btn-primary btn-sm">login</a></div>');
-    //"/api/users/" + idUser
     fetch(API_URL + "items", {
         method: "GET",
     })
@@ -33,7 +29,7 @@ const onItemsPage = (data) => {
     console.log(data);
     let jeuxSelectionner ="CSGO";
 
-    let RealPage =`<div class="container-fluide"><div class="row">`;
+    let RealPage =`<div class="container-fluid"><div class="row">`;
     let SelectGame =`<div class=" col-2" id="itemsDivContainer">`;
     let HomeItemsPage =`<div class="row mt-3 col-10" id="itemsDivContainer">`;
 
@@ -47,9 +43,7 @@ const onItemsPage = (data) => {
 
     SelectGame +=`<div class="container"><div class="btn-group-vertical">`;
     result.forEach(truc=> {
-        SelectGame +=`
-                <button type="button" class="btn btn-primary" >${truc.jeu} </button>`;
-
+        SelectGame +=`<button type="button" class="btn btn-primary" >${truc.jeu}</button>`;
     });
 
     console.log(jeuxSelectionner);

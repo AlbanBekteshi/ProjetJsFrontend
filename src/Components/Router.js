@@ -1,6 +1,4 @@
-import HomePage from "./HomePage.js";
 import ItemsPage from "./ItemsPage.js";
-import UserListPage from "./UserListPage.js";
 import UserPage from "./ProfilePage.js";
 import LoginPage from "./LoginPage.js";
 import RegisterPage from "./RegisterPage.js";
@@ -51,14 +49,6 @@ const Router = () => {
       }
     }
     if (uri) {
-      //console.log(
-      //  "onNavigate() uri:",
-      //  uri,
-      //  " location:",
-      //  window.location.pathname,
-      //  " origin :",
-      //  window.location.origin
-      //);
       // use Web History API to add current page URL to the user's navigation history & set right URL in the browser (instead of "#")
       window.history.pushState({}, uri, window.location.origin + uri);
       // render the requested component

@@ -39,7 +39,6 @@ const ProfilPage = () => {
 };
 
 const ProfilPage2 = (user) =>{
-
   const userCredential = getUserSessionData();
   if (!userCredential) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
 

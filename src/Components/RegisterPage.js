@@ -4,12 +4,6 @@ import { setUserSessionData,getUserSessionData } from "../utils/session.js";
 import { API_URL } from "../utils/server.js";
 import { setLayout } from "../utils/render.js";
 
-/* In a template literal, the ` (backtick), \ (backslash), and $ (dollar sign) characters should be 
-escaped using the escape character \ if they are to be included in their template value. 
-By default, all escape sequences in a template literal are ignored.*/
-/*
-
-*/
 let registerPage = `<form class="col-12">
 <div class="row">
   <div class="form-group col-md-12 col-lg-6">
@@ -67,11 +61,10 @@ const RegisterPage = () => {
   let page = document.querySelector("#page");
   page.innerHTML = registerPage;
   let registerForm = document.querySelector("form");
-  const user = getUserSessionData();
-  if (user) {
+  if (getUserSessionData()) {
     // re-render the navbar for the authenticated user
     Navbar();
-    RedirectUrl("/");
+    RedirectUrl("/profil");
   }
   else{
     registerForm.addEventListener("submit", onRegister);
@@ -95,10 +88,8 @@ const onRegister = (e) => {
   var email = document.getElementById("email");
   clearErrorBox();
   
-  
   // Email Verification
   if(isEmailGoodFormat(email)){
-    
     
     //Password verification
     if(password.value!=password2.value){
@@ -108,8 +99,6 @@ const onRegister = (e) => {
       onError(error);
     }
     else{
-      
-      
       //email + password OK => register user
       let user = {
         username: document.getElementById("username").value,
@@ -145,7 +134,7 @@ const onUserRegistration = (userData) => {
   setUserSessionData(user);
   // re-render the navbar for the authenticated user
   Navbar();
-  RedirectUrl("/list");
+  RedirectUrl("/");
 };
 
 const onError = (err) => {

@@ -22,16 +22,17 @@ let loginPage = `<form class="col-6">
 </form>`;
 
 const LoginPage = () => {
+  if (getUserSessionData()) {
+    // re-render the navbar for the authenticated user
+    Navbar();
+    RedirectUrl("/profil");
+  }
   setLayout("GIC : Login","Game Items Collection","Login Page","My footer");
   let page = document.querySelector("#page");
   page.innerHTML = loginPage;
   let loginForm = document.querySelector("form");
-  const user = getUserSessionData();
-  if (user) {
-    // re-render the navbar for the authenticated user
-    Navbar();
-    RedirectUrl("/list");
-  } else loginForm.addEventListener("submit", onLogin);
+  
+  loginForm.addEventListener("submit", onLogin);
 };
 
 const onLogin = (e) => {
@@ -46,12 +47,12 @@ const onLogin = (e) => {
   if(username.value == '' || password.value ==''){
     if(password.value==''){
       addErrorBoxOn(password);
-      var error= new Error("mdp être remplis !");
+      var error= new Error("mot de passe doit être remplis !");
       onError(error);
     }
     if(username.value==''){
       addErrorBoxOn(username);
-      var error= new Error("user être remplis !");
+      var error= new Error("username doit être remplis !");
       onError(error);
     }
   }
@@ -81,7 +82,6 @@ const onLogin = (e) => {
 };
 
 const onUserLogin = (userData) => {
-  console.log("onUserLogin:", userData);
   const user = { ...userData, isAutenticated: true };
   setUserSessionData(user);
   // re-render the navbar for the authenticated user

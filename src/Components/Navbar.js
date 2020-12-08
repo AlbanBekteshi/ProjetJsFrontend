@@ -4,9 +4,8 @@ import gicLogo from "./../images/public/logo.png";
 
 // destructuring assignment
 const Navbar = () => {
-  let navbar;
-  let user = getUserSessionData();    
-  if (user) {
+  let navbar; 
+  if (getUserSessionData()) {
     navbar = `<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
     <a class="navbar-brand" href="/"><img src="${gicLogo}" width="64" height="64" alt="Logo"></a>
     <button
