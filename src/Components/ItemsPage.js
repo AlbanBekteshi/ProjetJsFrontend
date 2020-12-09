@@ -24,44 +24,44 @@ const ItemsPage =() =>{
         }
         return response.json();
     })
-    .then((data) => ProfilPage(data))
+    .then((data) => onItemsPage(data))
     .catch();   
 };
 
 
-const ProfilPage = (data) => {
-    const userCredential = getUserSessionData();
-    if (!userCredential) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
+// const ProfilPage = (data) => {
+//     const userCredential = getUserSessionData();
+//     if (!userCredential) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
+//
+//     // get current user
+//     fetch(API_URL + "users/"+userCredential.idUser, {
+//         method: "GET",
+//         headers: {
+//             Authorization: userCredential.token,
+//         },
+//     })
+//         .then((response) => {
+//             if (!response.ok) {
+//                 let fullErrorMessage =
+//                     " Error code : " +
+//                     response.status +
+//                     " : " +
+//                     response.statusText +
+//                     "/nMessage : ";
+//                 return response.text().then((errorMessage) => {
+//                     fullErrorMessage += errorMessage;
+//                     return fullErrorMessage;
+//                 });
+//             }
+//             return response.json();
+//         })
+//         .then((user)=> onItemsPage(data,user)
+//         )
+//         .catch();
+// };
 
-    // get current user
-    fetch(API_URL + "users/"+userCredential.idUser, {
-        method: "GET",
-        headers: {
-            Authorization: userCredential.token,
-        },
-    })
-        .then((response) => {
-            if (!response.ok) {
-                let fullErrorMessage =
-                    " Error code : " +
-                    response.status +
-                    " : " +
-                    response.statusText +
-                    "/nMessage : ";
-                return response.text().then((errorMessage) => {
-                    fullErrorMessage += errorMessage;
-                    return fullErrorMessage;
-                });
-            }
-            return response.json();
-        })
-        .then((user)=> onItemsPage(data,user)
-        )
-        .catch();
-};
 
-
-const onItemsPage = (data,user) => {
+const onItemsPage = (data) => {
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
     
     /*totalPage est diviser en deux page différente
@@ -103,12 +103,12 @@ const onItemsPage = (data,user) => {
         if(jeuxSelectionner===""){
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
-                if(user.itemCollections.includes(item.itemId)){
-                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
-                }
-                else{
-                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
-                }
+                // if(user.itemCollections.includes(item.itemId)){
+                //     HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
+                // }
+                // else{
+                //     HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
+                // }
                 HomeItemsPage+=`</div></div></div>`;
             });
         }
