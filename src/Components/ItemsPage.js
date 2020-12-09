@@ -24,12 +24,44 @@ const ItemsPage =() =>{
         }
         return response.json();
     })
-    .then((data) => onItemsPage(data))
+    .then((data) => ProfilPage(data))
     .catch();   
-}
+};
 
 
-const onItemsPage = (data) => {
+const ProfilPage = (data) => {
+    const userCredential = getUserSessionData();
+    if (!userCredential) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
+
+    // get current user
+    fetch(API_URL + "users/"+userCredential.idUser, {
+        method: "GET",
+        headers: {
+            Authorization: userCredential.token,
+        },
+    })
+        .then((response) => {
+            if (!response.ok) {
+                let fullErrorMessage =
+                    " Error code : " +
+                    response.status +
+                    " : " +
+                    response.statusText +
+                    "/nMessage : ";
+                return response.text().then((errorMessage) => {
+                    fullErrorMessage += errorMessage;
+                    return fullErrorMessage;
+                });
+            }
+            return response.json();
+        })
+        .then((user)=> onItemsPage(data,user)
+        )
+        .catch();
+};
+
+
+const onItemsPage = (data,user) => {
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
     
     /*totalPage est diviser en deux page différente
@@ -66,18 +98,26 @@ const onItemsPage = (data) => {
             </div></div></div>`;
 
 
+
     if(getUserSessionData()){
         if(jeuxSelectionner===""){
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
-                HomeItemsPage+= `<p>Connecter</p>`
+                if(user.itemCollections.includes(item.itemId)){
+                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
+                }
+                else{
+                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
+                }
+                HomeItemsPage+=`</div></div></div>`;
             });
         }
         else{
             data.forEach(item => {
                 if(item.jeu===jeuxSelectionner){
                     HomeItemsPage+=getAffichage(item);
-                    HomeItemsPage+= `<p>Connecter</p>`
+
+                    HomeItemsPage+=`</div></div></div>`;
                 }
             });
 
@@ -87,12 +127,14 @@ const onItemsPage = (data) => {
         if(jeuxSelectionner===""){
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
+                HomeItemsPage+=`</div></div></div>`;
             });
         }
         else{
             data.forEach(item => {
                 if(item.jeu===jeuxSelectionner){
                     HomeItemsPage+=getAffichage(item);
+                    HomeItemsPage+=`</div></div></div>`;
                 }
             });
 
@@ -121,10 +163,8 @@ const onItemsPage = (data) => {
                             <u>Jeu :</u> ${item.jeu} <br>
                             <u>Description :</u> ${item.description} <br>
                             <u>Prix :</u> ${item.price}<br>
-                        </p>
-                    </div>
-                </div>  
-            </div>
+                        </p>                 
+                    
         `;
     }
 
