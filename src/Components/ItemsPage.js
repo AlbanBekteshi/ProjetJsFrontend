@@ -24,44 +24,48 @@ const ItemsPage =() =>{
         }
         return response.json();
     })
-    .then((data) => onItemsPage(data))
+    .then((data) => ProfilPage(data))
     .catch();   
 };
 
 
-// const ProfilPage = (data) => {
-//     const userCredential = getUserSessionData();
-//     if (!userCredential) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
-//
-//     // get current user
-//     fetch(API_URL + "users/"+userCredential.idUser, {
-//         method: "GET",
-//         headers: {
-//             Authorization: userCredential.token,
-//         },
-//     })
-//         .then((response) => {
-//             if (!response.ok) {
-//                 let fullErrorMessage =
-//                     " Error code : " +
-//                     response.status +
-//                     " : " +
-//                     response.statusText +
-//                     "/nMessage : ";
-//                 return response.text().then((errorMessage) => {
-//                     fullErrorMessage += errorMessage;
-//                     return fullErrorMessage;
-//                 });
-//             }
-//             return response.json();
-//         })
-//         .then((user)=> onItemsPage(data,user)
-//         )
-//         .catch();
-// };
+const ProfilPage = (data) => {
+    const userCredential = getUserSessionData();
+
+    // get current user
+    if(userCredential){
+        fetch(API_URL + "users/"+userCredential.idUser, {
+            method: "GET",
+            headers: {
+                Authorization: userCredential.token,
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    let fullErrorMessage =
+                        " Error code : " +
+                        response.status +
+                        " : " +
+                        response.statusText +
+                        "/nMessage : ";
+                    return response.text().then((errorMessage) => {
+                        fullErrorMessage += errorMessage;
+                        return fullErrorMessage;
+                    });
+                }
+                return response.json();
+            })
+            .then((user)=> onItemsPage(data,user)
+            )
+            .catch();
+    }
+    else{
+         onItemsPage(data);
+    }
+};
 
 
-const onItemsPage = (data) => {
+const onItemsPage = (data,user) => {
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
     
     /*totalPage est diviser en deux page différente
@@ -103,12 +107,12 @@ const onItemsPage = (data) => {
         if(jeuxSelectionner===""){
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
-                // if(user.itemCollections.includes(item.itemId)){
-                //     HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
-                // }
-                // else{
-                //     HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
-                // }
+                if(user.itemCollections.includes(item.itemId)){
+                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
+                }
+                else{
+                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
+                }
                 HomeItemsPage+=`</div></div></div>`;
             });
         }
@@ -116,7 +120,12 @@ const onItemsPage = (data) => {
             data.forEach(item => {
                 if(item.jeu===jeuxSelectionner){
                     HomeItemsPage+=getAffichage(item);
-
+                    if(user.itemCollections.includes(item.itemId)){
+                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
+                    }
+                    else{
+                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
+                    }
                     HomeItemsPage+=`</div></div></div>`;
                 }
             });
