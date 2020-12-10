@@ -94,14 +94,25 @@ const onItemsPage = (data,user) => {
     /*Creation du container pour les different Button
     * et creation d'un bouton par jeuxDispo + ajout
     * */
-    SelectGame +=`<div class="container"><div class="btn-group-vertical">`;
+    SelectGame +=`<div class="container mt-3"><div class="btn-group-vertical">`;
+
+        
+    var isActive="";
+    if(jeuxSelectionner==""){
+        isActive="active";
+    }
+    SelectGame+= `<button type="button" class="btn btn-primary ${isActive}" id="all">Tout afficher </button>`;
 
     listDesJeux.forEach(choixJeux=> {
+        var isActive="";
+        if(jeuxSelectionner==choixJeux.jeu){
+            isActive="active";
+        }
         SelectGame +=`
-                <button type="button" class="btn btn-primary" id="${choixJeux.jeu}">${choixJeux.jeu} </button>`;
+                <button type="button" class="btn btn-primary ${isActive}" id="${choixJeux.jeu}">${choixJeux.jeu} </button>`;
     });
-    SelectGame+= `<button type="button" class="btn btn-primary" id="all">Tout afficher </button>
-            </div></div></div>`;
+
+    SelectGame+=`</div></div></div>`;
 
 
 
