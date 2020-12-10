@@ -2,6 +2,7 @@ import {RedirectUrl} from "./Router";
 import {API_URL} from "../utils/server";
 import { setUserSessionData,getUserSessionData } from "../utils/session.js";
 import { setLayout } from "../utils/render.js";
+import UserList from "./UserList";
 
 //Source https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack
 function importAll(r) {
@@ -79,6 +80,7 @@ const ProfilPage = (data) => {
 
 
 const onItemsPage = (data,user) => {
+    UserList();
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
     
     /*totalPage est diviser en deux page différente

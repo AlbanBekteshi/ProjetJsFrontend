@@ -60,7 +60,6 @@ const UserList = () => {
     } else {
         userList.innerHTML = '';
     }
-
 };
 
 export default UserList;
