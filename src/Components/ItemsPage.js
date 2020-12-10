@@ -121,10 +121,10 @@ const onItemsPage = (data,user) => {
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
                 if(user.itemCollections.includes(item.itemId)){
-                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
+                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove${item.itemId}">Retirer</button>`
                 }
                 else{
-                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
+                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add${item.itemId}">ajouter</button>`
                 }
                 HomeItemsPage+=`</div></div></div>`;
             });
@@ -134,10 +134,10 @@ const onItemsPage = (data,user) => {
                 if(item.jeu===jeuxSelectionner){
                     HomeItemsPage+=getAffichage(item);
                     if(user.itemCollections.includes(item.itemId)){
-                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
+                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove${item.itemId}">Retirer</button>`
                     }
                     else{
-                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add">ajouter</button>`
+                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add${item.itemId}">ajouter</button>`
                     }
                     HomeItemsPage+=`</div></div></div>`;
                 }
@@ -214,8 +214,51 @@ const onItemsPage = (data,user) => {
         })
         })
         .catch();
+
+    fetch(API_URL + "items", {
+        method: "GET",
+    })
+        .then((response) => {
+            if (!response.ok) {
+                let fullErrorMessage = "Error code : " + response.status + ":" + response.statusText + "/nMessage : ";
+                return response.text().then((errorMessage) => {
+                    fullErrorMessage += errorMessage;
+                    return fullErrorMessage;
+                })
+            }
+            return response.json();
+        })
+        .then((data) => {
+            data.forEach(item =>{
+                if(jeuxSelectionner===""){
+                    if(user.itemCollections.includes(item.itemId)){
+                        var itId = "remove"+item.itemId;
+                        button = document.getElementById(itId).onclick = function(){ deleteItemToCollection(item.itemId,user.idUser)};
+                    }
+                    else{
+                        var itId = "add"+item.itemId;
+                        button = document.getElementById(itId).onclick = function(){ addItemToCollection(item.itemId,user.idUser)};
+                    }
+                }
+                else{
+                    if(item.jeu ===jeuxSelectionner){
+                        if(user.itemCollections.includes(item.itemId)){
+                            var itId = "remove"+item.itemId;
+                            button = document.getElementById(itId).onclick = function(){ deleteItemToCollection(item.itemId,user.idUser)};
+                        }
+                        else{
+                            var itId = "add"+item.itemId;
+                            button = document.getElementById(itId).onclick = function(){ addItemToCollection(item.itemId,user.idUser)};
+                        }
+                    }
+                }
+
+           })
+        })
+        .catch();
+
     button = document.getElementById("all").onclick = function () {changerJeux("")};
-    button = document.getElementById("add").onclick = function () {addItemToCollection(2,user.idUser)};
+
 
     function  changerJeux(nomJeux){
         jeuxSelectionner = nomJeux;
@@ -229,6 +272,13 @@ const onItemsPage = (data,user) => {
         })
         ItemsPage();
     }
+
+    function deleteItemToCollection(idItem,idUser){
+        fetch(API_URL+"users/item/"+idItem+"/"+idUser,{
+            method:"POST"
+        })
+        ItemsPage();
+    };
     console.log(user.itemCollections);
 };
 
