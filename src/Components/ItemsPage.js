@@ -2,6 +2,7 @@ import {RedirectUrl} from "./Router";
 import {API_URL} from "../utils/server";
 import { setUserSessionData,getUserSessionData } from "../utils/session.js";
 import { setLayout } from "../utils/render.js";
+const FILE_PATH = __dirname + "./../data/users.json";
 
 let page = document.querySelector("#page");
 
@@ -28,7 +29,8 @@ const ItemsPage =() =>{
     .catch();   
 };
 
-
+/*Permet de recuper les données de l'utilisateur connecter
+* */
 const ProfilPage = (data) => {
     const userCredential = getUserSessionData();
 
@@ -146,7 +148,6 @@ const onItemsPage = (data,user) => {
                     HomeItemsPage+=`</div></div></div>`;
                 }
             });
-
         }
     }
 
@@ -203,11 +204,21 @@ const onItemsPage = (data,user) => {
         })
         .catch();
     button = document.getElementById("all").onclick = function () {changerJeux("")};
+    button = document.getElementById("add").onclick = function () {addItemToCollection(2,user.idUser)};
+
     function  changerJeux(nomJeux){
         jeuxSelectionner = nomJeux;
         ItemsPage();
     }
 
+
+    function  addItemToCollection(idItem,idUser){
+        fetch(API_URL+"users/item/"+idItem+"/"+idUser,{
+            method:"PUT"
+        })
+        ItemsPage();
+    }
+    console.log(user.itemCollections);
 };
 
 
