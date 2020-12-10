@@ -32,4 +32,4 @@ Router();
 UserList();
 
 
-//GlobalTchat();
+GlobalTchat();
