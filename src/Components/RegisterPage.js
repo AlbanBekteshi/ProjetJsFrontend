@@ -3,6 +3,14 @@ import Navbar from "./Navbar.js";
 import { setUserSessionData,getUserSessionData } from "../utils/session.js";
 import { API_URL } from "../utils/server.js";
 import { setLayout } from "../utils/render.js";
+import avatar1 from "./../images/avatars/1.png";
+import avatar2 from "./../images/avatars/2.png";
+import avatar3 from "./../images/avatars/3.png";
+import avatar4 from "./../images/avatars/4.png";
+import avatar5 from "./../images/avatars/5.png";
+import avatar6 from "./../images/avatars/6.png";
+import avatar7 from "./../images/avatars/7.png";
+import avatar8 from "./../images/avatars/8.png";
 
 let registerPage = `<form class="col-12">
 <div class="row">
@@ -39,26 +47,72 @@ let registerPage = `<form class="col-12">
   </div>
 </div>
 
-<div class="row">
-  <div class="form-group col-md-12 col-lg-6">
-    <label for="avatar">Avatar</label>
-    <input class="form-control" id="avatar" type="file" name="avatar" placeholder="Choose your avatar" accept=".jpg,.png,.jpeg"/>
+Avatar<br>
+<!-- Source : https://iqbalfn.github.io/bootstrap-image-checkbox/ -->
+<div class="row pl-3">
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a1" name="avatar" checked>
+    <label class="custom-control-label" for="a1">
+      <img src="${avatar1}" alt="avatar1" class="img-fluid">
+    </label>
+  </div>
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a2" name="avatar" value="2">
+    <label class="custom-control-label" for="a2">
+      <img src="${avatar2}" alt="avatar1" class="img-fluid">
+    </label>
+  </div>
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a3" name="avatar" value="3">
+    <label class="custom-control-label" for="a3">
+      <img src="${avatar3}" alt="avatar1" class="img-fluid">
+    </label>
+  </div>
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a4" name="avatar" value="4">
+    <label class="custom-control-label" for="a4">
+      <img src="${avatar4}" alt="avatar1" class="img-fluid">
+    </label>
+  </div>
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a5" name="avatar" value="5">
+    <label class="custom-control-label" for="a5">
+      <img src="${avatar5}" alt="avatar1" class="img-fluid">
+    </label>
+  </div>
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a6" name="avatar" value="6">
+    <label class="custom-control-label" for="a6">
+      <img src="${avatar6}" alt="avatar1" class="img-fluid">
+    </label>
+  </div>
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a7" name="avatar" value="7">
+    <label class="custom-control-label" for="a7">
+      <img src="${avatar7}" alt="avatar1" class="img-fluid">
+    </label>
+  </div>
+  <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+    <input type="radio" class="custom-control-input" id="a8" name="avatar" value="8">
+    <label class="custom-control-label" for="a8">
+      <img src="${avatar8}" alt="avatar1" class="img-fluid">
+    </label>
   </div>
 </div>
 
-<div>
-  <button class="btn btn-primary" id="btn" type="submit">Submit</button>
+<div class="mt-2">
+  <button class="btn btn-primary btn-lg" id="btn" type="submit">Submit</button>
   <!-- Create an alert component with bootstrap that is not displayed by default-->
   <div class="alert alert-danger mt-2 d-none" id="messageBoard"></div>
 </div>
 
 </form>`;
 
-
-
 const RegisterPage = () => {
   setLayout("GIC : Register","Game Items Collection","Register Page","My footer");
   let page = document.querySelector("#page");
+  
+
   page.innerHTML = registerPage;
   let registerForm = document.querySelector("form");
   if (getUserSessionData()) {
@@ -179,5 +233,7 @@ const removeErrorBoxOn = (type) =>{
   type.classList.remove('border');
   type.classList.remove('border-danger');
 }
+
+
 
 export default RegisterPage;
