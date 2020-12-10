@@ -2,7 +2,7 @@ import {RedirectUrl} from "./Router";
 import {API_URL} from "../utils/server";
 import { setUserSessionData,getUserSessionData } from "../utils/session.js";
 import { setLayout } from "../utils/render.js";
-
+import UserList from "./UserList";
 //Source https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack
 function importAll(r) {
     let images = {};

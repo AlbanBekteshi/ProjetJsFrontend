@@ -27,9 +27,9 @@ const PAGE_TITLE = "Page Title";
 const FOOTER_TEXT = "Footer Page";
 
 Navbar();
-
-Router();
 UserList();
+Router();
+
 
 
 GlobalTchat();
