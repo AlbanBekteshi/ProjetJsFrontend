@@ -29,7 +29,7 @@ const FOOTER_TEXT = "Footer Page";
 Navbar();
 
 Router();
-UserList();
+
 
 
 GlobalTchat();

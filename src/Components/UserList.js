@@ -60,6 +60,7 @@ const UserList = () => {
             }
             return response.json();
         }).then((data) => {
+            userList.innerHTML='';
             listRenderer(data);
         });
 

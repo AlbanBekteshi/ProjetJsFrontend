@@ -80,6 +80,7 @@ const ProfilPage2 = (user) =>{
 };
 
 const onUserPage = (user,items) => {
+  UserList();
     setLayout("GIC : Profil de  "+user.username,"Game Items Collection",`Mon profil`,"My footer");
     let userPage = `
         <div class="row col-12 mt-4" id="mainProfilDiv">

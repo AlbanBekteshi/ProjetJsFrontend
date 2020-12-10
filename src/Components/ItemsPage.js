@@ -79,6 +79,7 @@ const ProfilPage = (data) => {
 
 
 const onItemsPage = (data,user) => {
+    UserList();
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
     
     /*totalPage est diviser en deux page différente
