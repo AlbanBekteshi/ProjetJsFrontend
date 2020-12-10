@@ -7,6 +7,38 @@ import {API_URL} from "../utils/server.js";
 const UserList = () => {
     const userCredential = getUserSessionData();
     console.log(userCredential);
+
+    function listRenderer(data) {
+        data.forEach((element) => {
+            let addUserList;
+            if (getUserSessionData()) {
+
+                if (!element.connected) {
+                    console.log("ok");
+                    addUserList = `<ul class="list-group bg-dark">
+                                       <li class="list-group-item bg-secondary d-flex justify-content-between align-items-center">
+                                       ${element.username}
+                                         <span class="badge badge-primary badge-pill">Hors Ligne</span>
+                                       </li>
+                                    </ul>`;
+                    userList.innerHTML += addUserList;
+                } else {
+                    addUserList = `<ul class="list-group bg-dark">
+                                       <li class="list-group-item bg-secondary d-flex justify-content-between align-items-center">
+                                        ${element.username}
+                                         <span class="badge badge-success badge-pill">En ligne</span>
+                                       </li>
+                                    </ul>`;
+                    userList.innerHTML += addUserList;
+                }
+            } else {
+                return userList.innerHTML = '';
+
+            }
+        });
+        return userList;
+    }
+
     if (userCredential) {
         fetch(API_URL + "users", {
             method: "GET",
@@ -28,37 +60,11 @@ const UserList = () => {
             }
             return response.json();
         }).then((data) => {
-            data.forEach((element) => {
-                let addUserList;
-                if (getUserSessionData()) {
-
-                    if (!element.connected) {
-                        console.log("ok");
-                        addUserList = `<ul class="list-group bg-dark">
-                                       <li class="list-group-item bg-secondary d-flex justify-content-between align-items-center">
-                                       ${element.username}
-                                         <span class="badge badge-primary badge-pill">Hors Ligne</span>
-                                       </li>
-                                    </ul>`;
-                        userList.innerHTML += addUserList;
-                    } else {
-                        addUserList = `<ul class="list-group bg-dark">
-                                       <li class="list-group-item bg-secondary d-flex justify-content-between align-items-center">
-                                        ${element.username}
-                                         <span class="badge badge-success badge-pill">En ligne</span>
-                                       </li>
-                                    </ul>`;
-                        userList.innerHTML += addUserList;
-                    }
-                } else {
-                    userList.innerHTML = '';
-
-                }
-            })
+            listRenderer(data);
         });
 
     } else {
-        userList.innerHTML = '';
+        return userList.innerHTML = '';
     }
 };
 
