@@ -251,7 +251,7 @@ const verifyModifications = (user)=>{
       console.log("email est disponible");
       emailIsAvailible=true;
     } else{
-      console.log("email est pas disponible");
+      console.log("l'email rentré n'est pas valide ou est déjà utilisé par quelqu'un d'autre");
       return false;
     }
   }else emailIsAvailible=true;
@@ -300,9 +300,9 @@ function isEmailAvailible(email){
 }
 
 function isEmailGoodFormat(email){
+  //Source for regex : https://www.codegrepper.com/code-examples/delphi/javascript+verify+email+address
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if(!emailRegex.test(email.value)){
-    var error = new Error("Le format de l'email est incorrect !");
+  if(!emailRegex.test(email)){
     return false;
   }
   return true;
