@@ -13,7 +13,7 @@ const routes = {
   "/logout": LogoutComponent,
   "/error": ErrorPage,
 };
-
+//let userList = document.querySelector("#userList");
 let page = document.querySelector("#page");
 let navBar = document.querySelector("#navBar");
 let componentToRender;

@@ -34,7 +34,6 @@
     d-flex to create a flexbox container and transform direct children elements into flex items 
     flex-column to set a vertical direction-->
     <div class="container-fluid h-100 d-flex flex-column">
-      
       <!-- Page content row. 
         flex-grow-1: Fill available space 
         mb-5 : to ensure that we see all of the content of the page row -->
@@ -42,11 +41,13 @@
         <div class="w-100">
 
           <!--Navbar-->
-          <div id="navBar"></div>       
-          
-          <h2 id="pageTitle" class="col-12"></h4>
+          <div id="navBar"></div>
+          <h2 id="pageTitle" class="col-12"></h2>
+          <div class="container-fluid">
+            <div class="col-2 float-right mt-3 bg-dark" id="userList"></div>
+            <div class="col-10" id="page"></div>
+          </div>
 
-          <div id="page"></div>
           <div id="tchatGlobal"></div>
         </div>
         <div class="d-none d-md-block col-md bg-dark"></div>
