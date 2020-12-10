@@ -163,9 +163,59 @@ const renderModifyProfil = (user)=>{
   let modifyUserPage = `
       <div class="row alert alert-danger mt-2 d-none" id="messageBoard"></div>
       <div class="col-sm-6 col-md-5 mb-3 mb-md-0">
-          <img src="https://source.unsplash.com/300x300" class="rounded mx-auto d-block" alt="Profile picture">
+        <form class="row">
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a1" name="avatarInput">
+            <label class="custom-control-label" for="a1">
+              <img src="${avatar1}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a2" name="avatarInput" value="2">
+            <label class="custom-control-label" for="a2">
+              <img src="${avatar2}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a3" name="avatarInput" value="3">
+            <label class="custom-control-label" for="a3">
+              <img src="${avatar3}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a4" name="avatarInput" value="4">
+            <label class="custom-control-label" for="a4">
+              <img src="${avatar4}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a5" name="avatarInput" value="5">
+            <label class="custom-control-label" for="a5">
+              <img src="${avatar5}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a6" name="avatarInput" value="6">
+            <label class="custom-control-label" for="a6">
+              <img src="${avatar6}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a7" name="avatarInput" value="7">
+            <label class="custom-control-label" for="a7">
+              <img src="${avatar7}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+          <div class="custom-control custom-radio image-checkbox my-2 mr-2">
+            <input type="radio" class="custom-control-input" id="a8" name="avatarInput" value="8">
+            <label class="custom-control-label" for="a8">
+              <img src="${avatar8}" alt="avatar1" class="img-fluid">
+            </label>
+          </div>
+        </form> 
       </div>
       
+
       <!--Photo de profil-->
       <form class="col-sm-12 col-md-7 my-auto">
         <!--Username-->
@@ -216,7 +266,11 @@ const renderModifyProfil = (user)=>{
   
   let profilPartDiv = document.getElementById('mainProfilDiv');
   profilPartDiv.innerHTML = modifyUserPage;
-  
+
+  let idCurrentAvatar = 'a'+user.avatar;
+  let currentAvatar = document.getElementById(idCurrentAvatar);
+  currentAvatar.checked=true;
+
   let btnCancel = document.getElementById('cancelModification');
   btnCancel.addEventListener("click",function(){
     RedirectUrl("/profil");
@@ -237,10 +291,17 @@ const renderModifyProfil = (user)=>{
 };
 
 const verifyModifications = (user)=>{
-  //récupère inputs (username et email du form) + efface les bg-danger des anciennces erreurs
-  var username = document.getElementById('username');
-  var email=document.getElementById('email');
   clearErrorBox();
+  console.log('user',user);
+  //récupère inputs (username et email du form) + efface les bg-danger des anciennces erreurs
+  var userId = user.idUser;
+  var avatar = document.getElementsByName("avatarInput");
+  var username = document.getElementById('username');
+  var email = document.getElementById('email');
+  var lName = document.getElementsById('lName');
+  var fName = document.getElementsById('fName');
+
+  
   var usernameIsAvailible = false;
   var emailIsAvailible = false;
 
