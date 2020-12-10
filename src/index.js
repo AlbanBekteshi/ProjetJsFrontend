@@ -29,4 +29,4 @@ Navbar();
 
 Router();
 
-//GlobalTchat();
+GlobalTchat();
