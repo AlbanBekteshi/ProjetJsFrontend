@@ -187,7 +187,7 @@ const onItemsPage = (data,user) => {
     function getAffichage(item) {
         let image = images[item.image].default;
         return `
-        <div class="col-lg-2 col-md-3 col-sm-6">
+        <div class="col-lg-2 col-md-3 col-sm-6 d-flex w-100">
                 <div class="card bg-secondary p-1 mb-2">
                     <img src="${image}" class="card-img-top" alt="ItemImg" id="${image}">
                     <div class="card-body">
