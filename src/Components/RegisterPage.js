@@ -51,49 +51,49 @@ Avatar<br>
 <!-- Source : https://iqbalfn.github.io/bootstrap-image-checkbox/ -->
 <div class="row pl-3">
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a1" name="avatar" checked>
+    <input type="radio" class="custom-control-input" id="a1" name="avatarInput" checked>
     <label class="custom-control-label" for="a1">
       <img src="${avatar1}" alt="avatar1" class="img-fluid">
     </label>
   </div>
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a2" name="avatar" value="2">
+    <input type="radio" class="custom-control-input" id="a2" name="avatarInput" value="2">
     <label class="custom-control-label" for="a2">
       <img src="${avatar2}" alt="avatar1" class="img-fluid">
     </label>
   </div>
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a3" name="avatar" value="3">
+    <input type="radio" class="custom-control-input" id="a3" name="avatarInput" value="3">
     <label class="custom-control-label" for="a3">
       <img src="${avatar3}" alt="avatar1" class="img-fluid">
     </label>
   </div>
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a4" name="avatar" value="4">
+    <input type="radio" class="custom-control-input" id="a4" name="avatarInput" value="4">
     <label class="custom-control-label" for="a4">
       <img src="${avatar4}" alt="avatar1" class="img-fluid">
     </label>
   </div>
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a5" name="avatar" value="5">
+    <input type="radio" class="custom-control-input" id="a5" name="avatarInput" value="5">
     <label class="custom-control-label" for="a5">
       <img src="${avatar5}" alt="avatar1" class="img-fluid">
     </label>
   </div>
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a6" name="avatar" value="6">
+    <input type="radio" class="custom-control-input" id="a6" name="avatarInput" value="6">
     <label class="custom-control-label" for="a6">
       <img src="${avatar6}" alt="avatar1" class="img-fluid">
     </label>
   </div>
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a7" name="avatar" value="7">
+    <input type="radio" class="custom-control-input" id="a7" name="avatarInput" value="7">
     <label class="custom-control-label" for="a7">
       <img src="${avatar7}" alt="avatar1" class="img-fluid">
     </label>
   </div>
   <div class="custom-control custom-radio image-checkbox my-2 mr-2">
-    <input type="radio" class="custom-control-input" id="a8" name="avatar" value="8">
+    <input type="radio" class="custom-control-input" id="a8" name="avatarInput" value="8">
     <label class="custom-control-label" for="a8">
       <img src="${avatar8}" alt="avatar1" class="img-fluid">
     </label>
@@ -140,6 +140,16 @@ const onRegister = (e) => {
   var password = document.getElementById("password");
   var password2 = document.getElementById("password2");
   var email = document.getElementById("email");
+  var avatar = document.getElementsByName("avatarInput");
+
+  var avatarSelctionne =0;
+  for(var index = 0; index < avatar.length; index++){
+    if(avatar[index].checked){
+      avatarSelctionne=index+1;
+      break;
+    }
+  }
+
   clearErrorBox();
   
   // Email Verification
@@ -160,6 +170,7 @@ const onRegister = (e) => {
         password: document.getElementById("password").value,
         fName: document.getElementById("fName").value,
         lName: document.getElementById("lName").value,
+        avatar : avatarSelctionne,
       };
 
       fetch(API_URL + "users/", {

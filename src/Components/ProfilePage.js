@@ -2,6 +2,16 @@ import { RedirectUrl } from "./Router.js";
 import { getUserSessionData } from "../utils/session.js";
 import { API_URL } from "../utils/server.js";
 import { setLayout } from "../utils/render.js";
+import avatar1 from "./../images/avatars/1.png";
+import avatar2 from "./../images/avatars/2.png";
+import avatar3 from "./../images/avatars/3.png";
+import avatar4 from "./../images/avatars/4.png";
+import avatar5 from "./../images/avatars/5.png";
+import avatar6 from "./../images/avatars/6.png";
+import avatar7 from "./../images/avatars/7.png";
+import avatar8 from "./../images/avatars/8.png";
+
+let avatarList = [avatar1,avatar2,avatar3,avatar4,avatar5,avatar6,avatar7,avatar8];
 
 let page = document.querySelector("#page");
 
@@ -75,7 +85,7 @@ const onUserPage = (user,items) => {
         <div class="row col-12 mt-4" id="mainProfilDiv">
             <!--Photo de profil-->
             <div class="col-sm-6 col-md-5 mb-3 mb-md-0">
-                <img src="https://source.unsplash.com/300x300" class="rounded mx-auto d-block" alt="Profile picture">
+                <img src="${avatarList[user.avatar-1]}" class="rounded mx-auto d-block" alt="Profile picture" width=300 height=300>
             </div>
             
             <!--Données Profil-->
