@@ -2,6 +2,17 @@ import {RedirectUrl} from "./Router";
 import {API_URL} from "../utils/server";
 import { setUserSessionData,getUserSessionData } from "../utils/session.js";
 import { setLayout } from "../utils/render.js";
+
+//Source https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack
+function importAll(r) {
+    let images = {};
+    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+    return images;
+  }
+  
+const images = importAll(require.context('./../images/items', false, /\.png$/));
+console.log(images);
+
 const FILE_PATH = __dirname + "./../data/users.json";
 
 let page = document.querySelector("#page");
@@ -133,6 +144,7 @@ const onItemsPage = (data,user) => {
             data.forEach(item => {
                 if(item.jeu===jeuxSelectionner){
                     HomeItemsPage+=getAffichage(item);
+                    
                     if(user.itemCollections.includes(item.itemId)){
                         HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove">Retirer</button>`
                     }
@@ -170,14 +182,14 @@ const onItemsPage = (data,user) => {
     totalPage+= SelectGame +HomeItemsPage +`</div></div>`;
     page.innerHTML = totalPage;
 
-
     /*Model qui permet d'afficher les items
     * */
     function getAffichage(item) {
+        let image = images[item.image].default;
         return `
         <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top" alt="ItemImg">
+                    <img src="${image}" class="card-img-top" alt="ItemImg" id="${image}">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold">${item.name}</h5>
                         <p class="card-text">
@@ -185,7 +197,6 @@ const onItemsPage = (data,user) => {
                             <u>Description :</u> ${item.description} <br>
                             <u>Prix :</u> ${item.price}<br>
                         </p>                 
-                    
         `;
     }
 
