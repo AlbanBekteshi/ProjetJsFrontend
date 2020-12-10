@@ -11,6 +11,7 @@ const Logout = () => {
       Authorization: getUserSessionData().token,
     }
   });
+  UserList();
   removeSessionData();
   // re-render the navbar for a non-authenticated user
   Navbar();

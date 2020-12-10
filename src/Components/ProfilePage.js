@@ -10,6 +10,7 @@ import avatar5 from "./../images/avatars/5.png";
 import avatar6 from "./../images/avatars/6.png";
 import avatar7 from "./../images/avatars/7.png";
 import avatar8 from "./../images/avatars/8.png";
+import UserList from "./UserList";
 
 let avatarList = [avatar1,avatar2,avatar3,avatar4,avatar5,avatar6,avatar7,avatar8];
 
@@ -79,8 +80,8 @@ const ProfilPage2 = (user) =>{
 };
 
 const onUserPage = (user,items) => {
+  UserList();
     setLayout("GIC : Profil de  "+user.username,"Game Items Collection",`Mon profil`,"My footer");
-    
     let userPage = `
         <div class="row col-12 mt-4" id="mainProfilDiv">
             <!--Photo de profil-->
