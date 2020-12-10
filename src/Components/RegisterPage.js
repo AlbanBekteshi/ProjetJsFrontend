@@ -129,7 +129,6 @@ const onRegister = (e) => {
 };
 
 const onUserRegistration = (userData) => {
-  console.log("onUserRegistration", userData);
   const user = { ...userData, isAutenticated: true };
   setUserSessionData(user);
   // re-render the navbar for the authenticated user
