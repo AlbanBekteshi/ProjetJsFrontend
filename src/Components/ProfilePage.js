@@ -12,6 +12,15 @@ import avatar7 from "./../images/avatars/7.png";
 import avatar8 from "./../images/avatars/8.png";
 import UserList from "./UserList";
 
+//Source https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack
+function importAll(r) {
+  let images = {};
+  r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+  return images;
+}
+
+const images = importAll(require.context('./../images/items', false, /\.png$/));
+
 let avatarList = [avatar1,avatar2,avatar3,avatar4,avatar5,avatar6,avatar7,avatar8];
 
 let page = document.querySelector("#page");
@@ -112,10 +121,11 @@ const onUserPage = (user,items) => {
         //création auto des items
         if(items[0]!=null){
           items.forEach(item => {
+            var image = images[item.image].default;
             userPage+=`
               <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                 <div class="card bg-secondary p-1 mb-2">
-                    <img src="https://source.unsplash.com/300x300" class="card-img-top mt-1" alt="ItemImg">
+                    <img src="${image}" class="card-img-top mt-1" alt="ItemImg">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold">${item.name}</h5>
                         <p class="card-text">
@@ -274,7 +284,7 @@ const renderModifyProfil = (user)=>{
 
   let btnCancel = document.getElementById('cancelModification');
   btnCancel.addEventListener("click",function(){
-    RedirectUrl("/profil");
+    location.reload();
   });
 
   let btnValid = document.getElementById('btnModifyProfil');
