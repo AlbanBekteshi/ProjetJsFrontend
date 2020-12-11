@@ -19,7 +19,7 @@ import "./stylesheets/style.css";
 import 'bootstrap/dist/css/bootstrap.css';
 /* load bootstrap module (JS) */
 import 'bootstrap';
-import GlobalTchat from "./Components/GlobalTchat.js";
+//import GlobalTchatPage from "./Components/GlobalTchatPage.js";
 import UserList from "./Components/UserList";
 
 const HEADER_TITLE = "Header Page";
@@ -30,6 +30,4 @@ Navbar();
 
 Router();
 
-
-
-GlobalTchat();
+//GlobalTchatPage();

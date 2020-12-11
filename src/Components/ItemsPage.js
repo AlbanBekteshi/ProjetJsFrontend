@@ -88,11 +88,11 @@ const onItemsPage = (data,user) => {
     /*SelectGame est la parti gauche de totalPage qui contiens
     * les diffenrent bouton qui nous premettes de selectionner un jeux
     * */
-    let SelectGame =`<div class=" col-2" id="itemsDivContainer">`;
+    let SelectGame =`<div class="col-sm-12 col-md-2" id="itemsDivContainer">`;
     
     /*HomeItemsPages est la partie de droite ou les items s'afficherons en fonction du jeux choisit
     * */
-    let HomeItemsPage =`<div class="row mt-3 col-10" id="itemsDivContainer">`;
+    let HomeItemsPage =`<div class="row mt-3 col-sm-12 col-md-10" id="itemsDivContainer">`;
     let button;
 
     /*Permet de selectionner da maniere distincte tout les differnt jeux disponible dans la dataBase
@@ -187,7 +187,7 @@ const onItemsPage = (data,user) => {
     function getAffichage(item) {
         let image = images[item.image].default;
         return `
-        <div class="col-lg-2 col-md-3 col-sm-6 d-flex w-100">
+        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 d-flex w-100">
                 <div class="card bg-secondary p-1 mb-2">
                     <img src="${image}" class="card-img-top" alt="ItemImg" id="${image}">
                     <div class="card-body">
