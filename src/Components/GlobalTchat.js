@@ -1,15 +1,17 @@
+const {Server, OPEN} = require("ws");
 let GlobalTchatSelector = document.querySelector("#tchatGlobal")
 const GlobalTchat = ()=>{
   
     let GlobalTchathtml = `
 
-  <ul id="Gchat"></ul>
-  <form>
-    <textarea class="btn btn-secondary" rows="1" cols="80" id="message"></textarea>
-    <br />
-    <button class="btn btn-primary" type="submit">Envoyer</button>
-  </form>
+    <ul id="Gchat"></ul>
 
+    <form>
+      <textarea rows="8" cols="80" id="message"></textarea>
+      <br />
+      <button type="submit">Send</button>
+    </form>
+    <script src="GlobalTchat.js"></script>
 `;
     
     GlobalTchatSelector.innerHTML = GlobalTchathtml;
@@ -19,6 +21,7 @@ const GlobalTchat = ()=>{
       connection.send(message);
       document.querySelector('#message').value = '';
     });
+
 };
 
 const connection = new WebSocket('ws://localhost:8080');
@@ -41,9 +44,5 @@ connection.onmessage = event => {
   li.innerText = event.data;
   document.querySelector('#Gchat').append(li);
 };
-
-
-
-
 
 export default GlobalTchat;
