@@ -7,7 +7,7 @@ const Navbar = () => {
   let navbar; 
   if (getUserSessionData()) {
     navbar = `<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
-    <a class="navbar-brand" href="/"><img src="${gicLogo}" width="64" height="64" alt="Logo"></a>
+    <a class="navbar-brand" href="/"><img src="${gicLogo}" width="64" height="64" alt="Logo" id="logo"></a>
     <button
     class="navbar-toggler"
     type="button"
@@ -31,7 +31,7 @@ const Navbar = () => {
   } else {
     navbar = `
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2 w-100" id="navBar">
-      <a class="navbar-brand" href="/"><img src="${gicLogo}" width="64" height="64" alt="Logo"></a>
+      <a class="navbar-brand" href="/"><img src="${gicLogo}" width="64" height="64" alt="Logo" id="logo"></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -53,7 +53,17 @@ const Navbar = () => {
     </nav>`;
   }
 
-  return (navBar.innerHTML = navbar);
+  navBar.innerHTML = navbar;
+
+  let myAnimation = anime({
+    targets: '#logo',
+    rotate:180,
+    delay:750,
+    scale:1.5,
+    duration: 500,
+    easing:'linear',
+    direction:'alternate',
+  });
 };
 
 export default Navbar;

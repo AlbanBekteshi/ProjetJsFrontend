@@ -6,7 +6,6 @@ import {API_URL} from "../utils/server.js";
 //Create User List
 const UserList = () => {
     const userCredential = getUserSessionData();
-    console.log(userCredential);
 
     function listRenderer(data) {
         data.forEach((element) => {
@@ -14,7 +13,6 @@ const UserList = () => {
             if (getUserSessionData()) {
 
                 if (!element.connected) {
-                    console.log("ok");
                     addUserList = `<ul class="list-group bg-dark">
                                        <li class="list-group-item bg-secondary d-flex justify-content-between align-items-center">
                                        ${element.username}
