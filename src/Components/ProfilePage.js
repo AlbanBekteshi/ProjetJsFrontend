@@ -233,7 +233,7 @@ const renderModifyProfil = (user)=>{
         <div class="form-group row">
           <label for="username" class="col-2 col-form-label">Username</label>
           <div class="col">
-            <input type="text" class="form-control border-0" id="username" value="${user.username}">
+            <input type="text" class="form-control border-0 bg-secondary text-white" id="username" value="${user.username}" disabled>
           </div>
         </div>
 
@@ -241,7 +241,7 @@ const renderModifyProfil = (user)=>{
         <div class="form-group row">
           <label for="email" class="col-2 col-form-label">Email</label>
           <div class="col">
-            <input type="email" class="form-control border-0" id="email" value="${user.email}">
+            <input type="email" class="form-control border-0 bg-secondary text-white" id="email" value="${user.email}" disabled>
           </div>
         </div>
 
@@ -293,9 +293,7 @@ const renderModifyProfil = (user)=>{
     e.preventDefault();
     console.log("début sauvegarde");
     
-    //vérifier si username et email sont correctes
-    if(verifyModifications(user)){
-      var avatars = document.getElementsByName("avatarInput");
+    var avatars = document.getElementsByName("avatarInput");
       var avatarSelectionne;
 
       for(let index=0;index<avatars.length;index++){
@@ -307,8 +305,8 @@ const renderModifyProfil = (user)=>{
 
       let newUser={
         userId: user.idUser,
-        username: document.getElementById('username').value,
-        email: document.getElementById("email").value,
+        username: user.username,
+        email: user.email,
         fName: document.getElementById("fName").value,
         lName: document.getElementById("lName").value,
         avatar: avatarSelectionne,
@@ -326,122 +324,7 @@ const renderModifyProfil = (user)=>{
           RedirectUrl("/profil");
         }
       })
-    }
   });
-  
 };
-
-const verifyModifications = (user)=>{
-  clearErrorBox();
-
-  var userId = user.idUser;
-  var avatars = document.getElementsByName("avatarInput");
-  var username = document.getElementById('username');
-  var email = document.getElementById('email');
-  var lName = document.getElementById('lName');
-  var fName = document.getElementById('fName');
-  var avatarSelectionne;
-
-  for(let index=0;index<avatars.length;index++){
-    if(avatars[index].checked){
-      avatarSelectionne=index+1;
-      break;
-    }
-  }
-
-  var usernameIsAvailible;
-  var emailIsAvailible;
-
-  //Si le username actuel est != de celui rentré
-  if(user.username!=username.value){
-    if(verifyUsername(username.value)){
-      usernameIsAvailible=true;
-    } else{
-      addErrorBoxOn(username);
-      console.log("username est pas disponible");
-      return false;
-    }
-  }
-  else usernameIsAvailible=true;
-
-  //Si l'email actuel est != de celui rentré
-  if(user.email!=email.value){
-    if(verifyEmail(email.value)){
-      emailIsAvailible=true;
-    } else{
-      addErrorBoxOn(email);
-      console.log("l'email rentré n'est pas valide ou est déjà utilisé par quelqu'un d'autre");
-      return false;
-    }
-  }else emailIsAvailible=true;
-
-  if(usernameIsAvailible && emailIsAvailible) return true;
-  else return false;
-};
-
-
-function verifyUsername(username){
-  fetch(API_URL+"/users/isUsernameAvailible/"+username,{
-    method:"GET",
-  }).then((isUsernameAvailible)=>{
-    //username disponible
-    if(isUsernameAvailible.status==200){
-      return true;
-    }
-    else{ //username pas disponible
-      return false;
-    }
-  });
-}
-
-function verifyEmail(email){
-  //vérifie si le format de l'email est correct
-  if(!isEmailGoodFormat(email)){
-    return false;
-  }else{
-    fetch(API_URL+"/users/isEmailAvailible/"+email,{
-      method:"GET",
-    }).then((response)=>{
-      //email disponible
-      if(response.status==200){
-        console.log('ok');
-        return true;
-      }
-      else{ //email pas disponible
-        console.log('ko');
-        return false;
-      }
-    });
-    return false;
-  }
-}
-
-function isEmailGoodFormat(email){
-  //Source for regex : https://www.codegrepper.com/code-examples/delphi/javascript+verify+email+address
-  const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if(!emailRegex.test(email)){
-    console.log("erreur format email");
-    return false;
-  }
-  return true;
-}
-
-function clearErrorBox(){
-  var username = document.getElementById('username');
-  var email=document.getElementById('email');
-  removeErrorBoxOn(username);
-  removeErrorBoxOn(email);
-}
-const addErrorBoxOn = (type) =>{
-  type.classList.add('border');
-  type.classList.add('border-danger');
-  type.classList.add('bg-danger');
-}
-const removeErrorBoxOn = (type) =>{
-  type.classList.remove('border');
-  type.classList.remove('border-danger');
-  type.classList.remove('bg-danger');
-}
-
 
 export default ProfilPage;
