@@ -96,7 +96,7 @@ const onUserPage = (user,items) => {
         <div class="row col-12 mt-4" id="mainProfilDiv">
             <!--Photo de profil-->
             <div class="col-sm-6 col-md-5 mb-3 mb-md-0">
-                <img src="${avatarList[user.avatar-1]}" class="rounded mx-auto d-block" alt="Profile picture" width=300 height=300>
+                <img id="profilImg" src="${avatarList[user.avatar-1]}" class="rounded mx-auto d-block" alt="Profile picture" width=300 height=300>
             </div>
             
             <!--Données Profil-->
@@ -150,6 +150,15 @@ const onUserPage = (user,items) => {
     //render the normal final page (sans modifier)
     page.innerHTML = userPage;
 
+    let myAnimation = anime({
+      targets: '#profilImg',
+      scale:0.1,
+      delay:500,
+      duration: 1000,
+      direction:'reverse',
+      easing:'linear'
+    });
+
     let btnModifierProfil = document.getElementById("btnModifyProfil");
     btnModifierProfil.addEventListener("click",function(e){
       e.preventDefault();
@@ -185,7 +194,6 @@ const onUserPage = (user,items) => {
     })
     ProfilPage();
   };
-  console.log(user.itemCollections);
 };
 
 const onError = (err) => {
@@ -200,8 +208,6 @@ const onError = (err) => {
 };
 
 const renderModifyProfil = (user)=>{
-  console.log(user);
-
   //form page to modify profil
   let modifyUserPage = `
       <div class="row alert alert-danger mt-2 d-none" id="messageBoard"></div>

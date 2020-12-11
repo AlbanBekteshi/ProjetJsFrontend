@@ -290,7 +290,6 @@ const onItemsPage = (data,user) => {
         })
         ItemsPage();
     };
-    console.log(user.itemCollections);
 };
 
 
