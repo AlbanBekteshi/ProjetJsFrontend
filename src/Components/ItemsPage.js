@@ -265,7 +265,7 @@ const onItemsPage = (data,user) => {
         .then((data) => {
             data.forEach(item =>{
                 var itiId = "has"+item.itemId;
-                button =document.getElementById(itiId).onclick = function (){ afficherModal(item.itemId)};
+                button = document.getElementById(itiId).addEventListener("click", ()=>{ afficherModal(item.itemId)});
                 if(jeuxSelectionner===""){
                     if(user.itemCollections.includes(item.itemId)){
                         var itId = "remove"+item.itemId;

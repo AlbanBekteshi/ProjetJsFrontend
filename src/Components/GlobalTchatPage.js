@@ -3,8 +3,6 @@ import {getUserSessionData} from "../utils/session.js";
 import {RedirectUrl} from "./Router.js";
 import UserList from "./UserList.js";
 import {API_URL} from "../utils/server";
-// get my id
-let myId = getUserSessionData().idUser;
 let GlobalTchatSelector = document.querySelector("#page")
 const GlobalTchatPage = () => {
     const userCredential = getUserSessionData();
