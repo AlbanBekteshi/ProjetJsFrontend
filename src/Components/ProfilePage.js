@@ -11,6 +11,7 @@ import avatar6 from "./../images/avatars/6.png";
 import avatar7 from "./../images/avatars/7.png";
 import avatar8 from "./../images/avatars/8.png";
 import UserList from "./UserList";
+import ItemsPage from "./ItemsPage";
 
 //Source https://stackoverflow.com/questions/42118296/dynamically-import-images-from-a-directory-using-webpack
 function importAll(r) {
@@ -133,6 +134,7 @@ const onUserPage = (user,items) => {
                             <u>Description :</u> ${item.description}<br>
                             <u>Prix :</u> ${item.price}<br>
                         </p>
+                        <button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>
                     </div>
                 </div>  
               </div>
@@ -154,6 +156,36 @@ const onUserPage = (user,items) => {
       //render the page without profile modification form
       renderModifyProfil(user);
     });
+
+    fetch(API_URL + "items", {
+    method: "GET",
+  })
+      .then((response) => {
+        if (!response.ok) {
+          let fullErrorMessage = "Error code : " + response.status + ":" + response.statusText + "/nMessage : ";
+          return response.text().then((errorMessage) => {
+            fullErrorMessage += errorMessage;
+            return fullErrorMessage;
+          })
+        }
+        return response.json();
+      })
+      .then((data) => {
+        data.forEach(item =>{
+          if(user.itemCollections.includes(item.itemId)){
+            var itId = "remove"+item.itemId;
+            let button = document.getElementById(itId).onclick = function(){ deleteItemToCollection(item.itemId,user.idUser)};
+          }
+        })
+      })
+      .catch();
+  function deleteItemToCollection(idItem,idUser){
+    fetch(API_URL+"users/item/"+idItem+"/"+idUser,{
+      method:"POST"
+    })
+    ProfilPage();
+  };
+  console.log(user.itemCollections);
 };
 
 const onError = (err) => {
@@ -325,6 +357,8 @@ const renderModifyProfil = (user)=>{
         }
       })
   });
+
+
 };
 
 export default ProfilPage;

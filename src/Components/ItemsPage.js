@@ -132,7 +132,7 @@ const onItemsPage = (data,user) => {
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
                 if(user.itemCollections.includes(item.itemId)){
-                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove${item.itemId}">Retirer</button>`
+                    HomeItemsPage+= `<button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>`
                 }
                 else{
                     HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add${item.itemId}">ajouter</button>`
@@ -146,7 +146,7 @@ const onItemsPage = (data,user) => {
                     HomeItemsPage+=getAffichage(item);
                     
                     if(user.itemCollections.includes(item.itemId)){
-                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="remove${item.itemId}">Retirer</button>`
+                        HomeItemsPage+= `<button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>`
                     }
                     else{
                         HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add${item.itemId}">ajouter</button>`
