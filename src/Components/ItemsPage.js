@@ -11,7 +11,6 @@ function importAll(r) {
   }
   
 const images = importAll(require.context('./../images/items', false, /\.png$/));
-console.log(images);
 
 const FILE_PATH = __dirname + "./../data/users.json";
 
