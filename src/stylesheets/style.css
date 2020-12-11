@@ -12,6 +12,10 @@ a {
   color: #00B7FF;
 }
 
+li{
+  list-style-type: none;
+}
+
 /* CSS to deal with constraint validation styles */
 input:valid {
   border: 2px solid green;
