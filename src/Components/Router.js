@@ -3,6 +3,7 @@ import UserPage from "./ProfilePage.js";
 import LoginPage from "./LoginPage.js";
 import RegisterPage from "./RegisterPage.js";
 import LogoutComponent from "./LogoutComponent.js";
+import GlobalTchatPage from "./GlobalTchatPage.js";
 import ErrorPage from "./ErrorPage.js";
 
 const routes = {
@@ -11,6 +12,7 @@ const routes = {
   "/login": LoginPage,
   "/register": RegisterPage,
   "/logout": LogoutComponent,
+  "/message": GlobalTchatPage,
   "/error": ErrorPage,
 };
 //let userList = document.querySelector("#userList");
@@ -43,8 +45,15 @@ const Router = () => {
           uri="/profil";
         }
         else{
-          uri = "/" + e.target.text.toLowerCase();
+          if(e.target.text === 'Chat Global'){
+            uri="/message";
+          }
+          else{
+            uri = "/" + e.target.text.toLowerCase();
+          }
+          
         }
+
         
       }
     }
