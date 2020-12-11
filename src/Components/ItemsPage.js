@@ -92,7 +92,29 @@ const onItemsPage = (data,user) => {
     
     /*HomeItemsPages est la partie de droite ou les items s'afficherons en fonction du jeux choisit
     * */
-    let HomeItemsPage =`<div class="row mt-3 col-sm-12 col-md-10" id="itemsDivContainer">`;
+    let HomeItemsPage =`<div class="row mt-3 col-sm-12 col-md-10" id="itemsDivContainer">
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog modal-dialog-centered">
+                              <div class="modal-content">
+                              
+                                <!-- Modal Header -->
+                                <div class="modal-header bg-dark">
+                                  <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                                </div>
+                                
+                                <!-- Modal body -->
+                                <div class="modal-body bg-dark" id="modal_body">
+                                  
+                                </div>
+                                
+                                <!-- Modal footer -->
+                                <div class="modal-footer bg-dark">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div>`;
     let button;
 
     /*Permet de selectionner da maniere distincte tout les differnt jeux disponible dans la dataBase
@@ -131,6 +153,7 @@ const onItemsPage = (data,user) => {
         if(jeuxSelectionner===""){
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
+                HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}" data-toggle="modal" data-target="#myModal">Qui le possede ? </button>`
                 if(user.itemCollections.includes(item.itemId)){
                     HomeItemsPage+= `<button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>`
                 }
@@ -241,6 +264,8 @@ const onItemsPage = (data,user) => {
         })
         .then((data) => {
             data.forEach(item =>{
+                var itiId = "has"+item.itemId;
+                button =document.getElementById(itiId).onclick = function (){ afficherModal(item.itemId)};
                 if(jeuxSelectionner===""){
                     if(user.itemCollections.includes(item.itemId)){
                         var itId = "remove"+item.itemId;
@@ -270,6 +295,27 @@ const onItemsPage = (data,user) => {
 
     button = document.getElementById("all").onclick = function () {changerJeux("")};
 
+    function  afficherModal(idItem){
+        fetch(API_URL+"users/getUserFromItem/"+idItem,{
+            method:"GET",
+        }).then((response)=>{
+            if (response.ok) return response.json();
+        }).then((liste) => {
+            afficherModal2(liste);
+        });
+    }
+
+    function afficherModal2(list){
+        let modal = document.getElementById("modal_body");
+        let partHtml='';
+        list.forEach(user =>{
+            partHtml +=`Username : ${user.username}<br>Email : ${user.email}
+            <hr>`;
+        });
+        modal.innerHTML = partHtml;
+        let modalGlobal = document.getElementById('myModal');
+        console.log(modalGlobal);
+    }
 
     function  changerJeux(nomJeux){
         jeuxSelectionner = nomJeux;
