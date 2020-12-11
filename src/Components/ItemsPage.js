@@ -98,18 +98,17 @@ const onItemsPage = (data,user) => {
                               <div class="modal-content">
                               
                                 <!-- Modal Header -->
-                                <div class="modal-header">
-                                  <h4 class="modal-title">Modal Heading</h4>
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <div class="modal-header bg-dark">
+                                  <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                                 </div>
                                 
                                 <!-- Modal body -->
-                                <div class="modal-body" id="modal_body">
+                                <div class="modal-body bg-dark" id="modal_body">
                                   
                                 </div>
                                 
                                 <!-- Modal footer -->
-                                <div class="modal-footer">
+                                <div class="modal-footer bg-dark">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                                 
@@ -154,7 +153,7 @@ const onItemsPage = (data,user) => {
         if(jeuxSelectionner===""){
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
-                HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}">Qui le possede ? </button>`
+                HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}" data-toggle="modal" data-target="#myModal">Qui le possede ? </button>`
                 if(user.itemCollections.includes(item.itemId)){
                     HomeItemsPage+= `<button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>`
                 }
@@ -297,18 +296,25 @@ const onItemsPage = (data,user) => {
     button = document.getElementById("all").onclick = function () {changerJeux("")};
 
     function  afficherModal(idItem){
-        let list;
         fetch(API_URL+"users/getUserFromItem/"+idItem,{
-            method:"GET"
-        }).then(response=>{if (response.ok) return response.json()})
-            .then(liste => {list=liste});
+            method:"GET",
+        }).then((response)=>{
+            if (response.ok) return response.json();
+        }).then((liste) => {
+            afficherModal2(liste);
+        });
+    }
+
+    function afficherModal2(list){
         let modal = document.getElementById("modal_body");
-        let partHtml;
+        let partHtml='';
         list.forEach(user =>{
-            partHtml +=`Username : ${user.username}`;
+            partHtml +=`Username : ${user.username}<br>Email : ${user.email}
+            <hr>`;
         });
         modal.innerHTML = partHtml;
-        console.log("oke")
+        let modalGlobal = document.getElementById('myModal');
+        console.log(modalGlobal);
     }
 
     function  changerJeux(nomJeux){
