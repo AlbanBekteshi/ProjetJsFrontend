@@ -72,7 +72,6 @@ const UserList = () => {
         notConnected.forEach((element) => {
             list.push(element);
         });
-        console.log(list);
         listRenderer(list);
     }
 
