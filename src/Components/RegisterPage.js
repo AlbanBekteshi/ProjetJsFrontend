@@ -225,6 +225,7 @@ const onError = (err) => {
 };
 
 function isEmailGoodFormat(email){
+  //source : https://www.codegrepper.com/code-examples/delphi/javascript+verify+email+address
   const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if(!emailRegex.test(email.value)){
     var error = new Error("Le format de l'email est incorrect !");
