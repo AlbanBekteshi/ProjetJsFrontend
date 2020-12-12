@@ -15,7 +15,7 @@ const UserList = () => {
     function listRenderer(data) {
         userList.innerHTML = `<h1 class="ml10">
             <span class="text-wrapper d-block bg-dark">
-                <span class="letters bg-dark list-group-item text-success">Connectée :  <span class="text-white">${connected.length}/${list.length}</span></span>
+                <span class="letters bg-dark list-group-item text-info text-justify">Nombre de connectée :  <span class="text-white-50">${connected.length}/${list.length}</span></span>
             </span>
         </h1>`;
 
