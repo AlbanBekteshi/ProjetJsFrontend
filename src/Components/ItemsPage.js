@@ -39,7 +39,7 @@ const ItemsPage =() =>{
     .catch();   
 };
 
-/*Permet de recuper les données de l'utilisateur connecter
+/*Permet de recuperer les données de l'utilisateur connecter
 * */
 const ProfilPage = (data) => {
     const userCredential = getUserSessionData();
@@ -76,7 +76,8 @@ const ProfilPage = (data) => {
     }
 };
 
-
+/*Creation de la HomePage
+* */
 const onItemsPage = (data,user) => {
     UserList();
     setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
@@ -148,7 +149,11 @@ const onItemsPage = (data,user) => {
     SelectGame+=`</div></div></div>`;
 
 
-
+    /*Verifie si quelqu'un est connecter et affiche la page en fonction
+    * jeuxSelectionner nous indique si veut afficher un jeux en particuler ou afficher tout les jeux
+    * la fonction getAffichage permet d'ajouter l'affichage commun a toute les pages
+    * les boutons "Qui le possede" qui affiche le modal ne sont disponible que si un utilisateur est connecter
+    * */
     if(getUserSessionData()){
         if(jeuxSelectionner===""){
             data.forEach(item => {
@@ -304,6 +309,8 @@ const onItemsPage = (data,user) => {
 
     button = document.getElementById("all").onclick = function () {changerJeux("")};
 
+    /*Fait fonctionner le modal et le rempli en condition du bouton cliquer
+    * */
     function  afficherModal(idItem){
         fetch(API_URL+"users/getUserFromItem/"+idItem,{
             method:"GET",
@@ -326,12 +333,15 @@ const onItemsPage = (data,user) => {
 
     }
 
+    /*Permet de changer le jeux a afficher
+    * */
     function  changerJeux(nomJeux){
         jeuxSelectionner = nomJeux;
         ItemsPage();
     }
 
-
+    /*Ajout d'un item a sa collection
+    * */
     function  addItemToCollection(idItem,idUser){
         fetch(API_URL+"users/item/"+idItem+"/"+idUser,{
             method:"PUT"
@@ -339,6 +349,8 @@ const onItemsPage = (data,user) => {
         ItemsPage();
     }
 
+    /*Suppression d'un item de sa collection
+    * */
     function deleteItemToCollection(idItem,idUser){
         fetch(API_URL+"users/item/"+idItem+"/"+idUser,{
             method:"POST"
