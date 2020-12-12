@@ -167,7 +167,7 @@ const onItemsPage = (data,user) => {
             data.forEach(item => {
                 if(item.jeu===jeuxSelectionner){
                     HomeItemsPage+=getAffichage(item);
-                    
+                    HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}" data-toggle="modal" data-target="#myModal">Qui le possede ? </button>`
                     if(user.itemCollections.includes(item.itemId)){
                         HomeItemsPage+= `<button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>`
                     }
@@ -248,50 +248,59 @@ const onItemsPage = (data,user) => {
         })
         })
         .catch();
-
-    fetch(API_URL + "items", {
-        method: "GET",
-    })
-        .then((response) => {
-            if (!response.ok) {
-                let fullErrorMessage = "Error code : " + response.status + ":" + response.statusText + "/nMessage : ";
-                return response.text().then((errorMessage) => {
-                    fullErrorMessage += errorMessage;
-                    return fullErrorMessage;
-                })
-            }
-            return response.json();
+    if (getUserSessionData()){
+        fetch(API_URL + "items", {
+            method: "GET",
         })
-        .then((data) => {
-            data.forEach(item =>{
-                var itiId = "has"+item.itemId;
-                button = document.getElementById(itiId).addEventListener("click", ()=>{ afficherModal(item.itemId)});
-                if(jeuxSelectionner===""){
-                    if(user.itemCollections.includes(item.itemId)){
-                        var itId = "remove"+item.itemId;
-                        button = document.getElementById(itId).onclick = function(){ deleteItemToCollection(item.itemId,user.idUser)};
-                    }
-                    else{
-                        var itId = "add"+item.itemId;
-                        button = document.getElementById(itId).onclick = function(){ addItemToCollection(item.itemId,user.idUser)};
-                    }
+            .then((response) => {
+                if (!response.ok) {
+                    let fullErrorMessage = "Error code : " + response.status + ":" + response.statusText + "/nMessage : ";
+                    return response.text().then((errorMessage) => {
+                        fullErrorMessage += errorMessage;
+                        return fullErrorMessage;
+                    })
                 }
-                else{
-                    if(item.jeu ===jeuxSelectionner){
+                return response.json();
+            })
+            .then((data) => {
+                data.forEach(item =>{
+
+                    if(jeuxSelectionner===""){
                         if(user.itemCollections.includes(item.itemId)){
+                            var itiId = "has"+item.itemId;
+                            button =document.getElementById(itiId).onclick = function (){ afficherModal(item.itemId)};
                             var itId = "remove"+item.itemId;
                             button = document.getElementById(itId).onclick = function(){ deleteItemToCollection(item.itemId,user.idUser)};
                         }
                         else{
+                            var itiId = "has"+item.itemId;
+                            button =document.getElementById(itiId).onclick = function (){ afficherModal(item.itemId)};
                             var itId = "add"+item.itemId;
                             button = document.getElementById(itId).onclick = function(){ addItemToCollection(item.itemId,user.idUser)};
                         }
                     }
-                }
+                    else{
+                        if(item.jeu ===jeuxSelectionner){
+                            if(user.itemCollections.includes(item.itemId)){
+                                var itiId = "has"+item.itemId;
+                                button =document.getElementById(itiId).onclick = function (){ afficherModal(item.itemId)};
+                                var itId = "remove"+item.itemId;
+                                button = document.getElementById(itId).onclick = function(){ deleteItemToCollection(item.itemId,user.idUser)};
+                            }
+                            else{
+                                var itiId = "has"+item.itemId;
+                                button =document.getElementById(itiId).onclick = function (){ afficherModal(item.itemId)};
+                                var itId = "add"+item.itemId;
+                                button = document.getElementById(itId).onclick = function(){ addItemToCollection(item.itemId,user.idUser)};
+                            }
+                        }
+                    }
 
-           })
-        })
-        .catch();
+                })
+            })
+            .catch();
+    }
+
 
     button = document.getElementById("all").onclick = function () {changerJeux("")};
 
@@ -314,7 +323,7 @@ const onItemsPage = (data,user) => {
         });
         modal.innerHTML = partHtml;
         let modalGlobal = document.getElementById('myModal');
-        console.log(modalGlobal);
+
     }
 
     function  changerJeux(nomJeux){
