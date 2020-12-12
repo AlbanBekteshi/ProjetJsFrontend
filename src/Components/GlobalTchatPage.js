@@ -48,7 +48,7 @@ const GlobalTchatPage = () => {
 
         UserList();
         let GlobalTchathtml = `
-      <div id="chatBox" class="container-fluid float-left w-75">
+      <div id="chatBox" class="container-fluid float-left col-md-12 col-lg-8">
         <ul id="Gchat" class="container-fluid col-12 ml-1">
         
         </ul>
