@@ -11,6 +11,9 @@ const GlobalTchatPage = () => {
     if (!userCredential) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
     else {
         let messageData = [];
+        /**
+        Récupération des messages depuis le backend pour ensuite pouvoir les afficher de manière dynamique.
+         */
         fetch(API_URL + "chats", {
             method: "GET",
             headers: {
@@ -32,12 +35,16 @@ const GlobalTchatPage = () => {
             return response.json();
         }).then((data) => {
             messageData = data;
+            /**
+             * Affichage dynamique de la conversation.
+             * Affichage à droite pour l'utilisateur courant et affichage à gauche pour les autres.
+             */
             messageData.forEach((element) => {
                 if (element.idUser == getUserSessionData().idUser) {
-                    let message = `<br><li id="msg1" class="list-group-item bg-success"> <span>${element.username}</span> : ${element.text}</li>`
+                    let message = `<br><li id="msg1" class="list-group-item bg-success">  <span>${element.username}</span> : ${element.text} <span id="chatDate" class="float-left text-white-50">${element.date}</span> </li>`
                     document.querySelector('#Gchat').innerHTML += message;
                 } else {
-                    let message = `<br><li id="msg2" class="list-group-item bg-primary"> <span>${element.username}</span> : ${element.text}</li>`
+                    let message = `<br><li id="msg2" class="list-group-item bg-primary"> <span>${element.username}</span> : ${element.text}<span id="chatDate" class="float-right text-white-50">${element.date}</span> </li>`
                     document.querySelector('#Gchat').innerHTML += message;
                 }
                 var element = document.getElementById("Gchat");
@@ -66,43 +73,40 @@ const GlobalTchatPage = () => {
 
 
         GlobalTchatSelector.innerHTML = GlobalTchathtml;
+        /**
+         * A chaque envoie de message on gère le chatbox.
+         */
         document.querySelector('form').addEventListener('submit', event => {
             event.preventDefault();
+            let currentTimeDate = new Date();
+            let currentTimeStamp = currentTimeDate.getDay()+"-"+currentTimeDate.getMonth()+"-"+ currentTimeDate.getFullYear()+"  "+ currentTimeDate.getUTCHours()+":"+ currentTimeDate.getUTCMinutes()+":"+currentTimeDate.getUTCSeconds();
             let username = userCredential.username;
             let message = username + " : " + document.querySelector('#message').value;
             connection.send(message);
-            fetch(API_URL + "chats/" + getUserSessionData().idUser + "/" + getUserSessionData().username + "/" + document.querySelector('#message').value, {
+            /**
+             * Envoie les données "id user /name / message" pour la persistances des données dans le backend.
+             */
+            fetch(API_URL + "chats/" + getUserSessionData().idUser + "/" + getUserSessionData().username + "/" + document.querySelector('#message').value+"/"+ currentTimeStamp.toString(), {
                 method: "POST",
                 headers: {
                     Authorization: userCredential.token,
                 },
             }).then((response) => {
-                if (!response.ok) {
-                    let fullErrorMessage =
-                        " Error code : " +
-                        response.status +
-                        " : " +
-                        response.statusText +
-                        "/nMessage : ";
-                    return response.text().then((errorMessage) => {
-                        fullErrorMessage += errorMessage;
-                        return fullErrorMessage;
-                    });
-                }
-                return response.json();
+                return response;
             }).then((data) => {
 
             });
             document.querySelector('#message').value = '';
-            RedirectUrl("/message");
         });
     }
 
     connection.onmessage = () => {
+        /**
+         * affichage dynamique des messages.
+         */
         setTimeout(function () {
             RedirectUrl("/message");
-        }, 5000);
-
+        }, 500);
     }
 };
 

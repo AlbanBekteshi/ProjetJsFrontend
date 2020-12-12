@@ -24,7 +24,6 @@ let componentToRender;
 const Router = () => {
   /* manage to route the right component when the page is loaded */
   window.addEventListener("load", (e) => {
-    //console.log("onload page:", [window.location.pathname]);
     componentToRender = routes[window.location.pathname];
     if (!componentToRender)
       return ErrorPage(

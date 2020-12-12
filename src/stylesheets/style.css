@@ -1,3 +1,6 @@
+/**
+Code source : Cours de JS
+ */
 *{
   padding: 0;
   margin: 0;
@@ -32,50 +35,88 @@ input:valid {
   position: relative;
   padding-left: 0;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:after, .custom-control.image-checkbox .custom-control-input:checked ~ .custom-control-label:before {
   opacity: 1;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .custom-control.image-checkbox label {
   cursor: pointer;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .custom-control.image-checkbox label:before {
   border-color: #007bff;
   background-color: #007bff;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .custom-control.image-checkbox label:after, .custom-control.image-checkbox label:before {
   transition: opacity .3s ease;
   opacity: 0;
   left: .25rem;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .custom-control.image-checkbox label:focus, .custom-control.image-checkbox label:hover {
   opacity: .8;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .custom-control.image-checkbox label img {
   border-radius: 2.5px;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .form-group-image-checkbox.is-invalid label {
   color: #dc3545;
 }
-
+/*!
+ * Bootstrap Image Checkbox v0.1.0 (https://iqbalfn.github.io/bootstrap-image-checkbox/)
+ * Copyright 2019 Iqbal Fauzi
+ * Licensed under MIT (https://github.com/iqbalfnn/bootstrap-image-checkbox/blob/master/LICENSE)
+ */
 .form-group-image-checkbox.is-invalid .invalid-feedback {
   display: block;
 }
 /*# sourceMappingURL=bootstrap-image-checkbox.css.map */
 
-/*Source https://tobiasahlin.com/moving-letters/#10*/
+/*
+Gestion de l'animation pour le title connectée de la liste users.
+Code ource récupérer sur :  https://tobiasahlin.com/moving-letters/#10
+*/
 .ml10 {
   position: relative;
   font-weight: 900;
   font-size: 1em;
 }
-
+/*
+Gestion de l'animation pour le title connectée de la liste users.
+Code ource récupérer sur :  https://tobiasahlin.com/moving-letters/#10
+*/
 .ml10 .text-wrapper {
   position: relative;
   display: inline-block;
@@ -84,7 +125,10 @@ input:valid {
   padding-bottom: 0.1em;
   overflow: hidden;
 }
-
+/*
+Gestion de l'animation pour le title connectée de la liste users.
+Code ource récupérer sur :  https://tobiasahlin.com/moving-letters/#10
+*/
 .ml10 .letter {
   display: inline-block;
   line-height: 1em;
@@ -93,7 +137,7 @@ input:valid {
 
 
 /*
-global chat management
+global chat management, gestion sur mesure de l'affichage.
  */
 #msg1{
   font-size: 20px;
@@ -119,4 +163,8 @@ global chat management
   margin-bottom: 10px;
   overflow-y:scroll;
   overflow-x: hidden;
+}
+#chatDate{
+  font-size:10px;
+  font-family: Arial;
 }

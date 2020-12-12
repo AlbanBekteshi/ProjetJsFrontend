@@ -329,7 +329,6 @@ const renderModifyProfil = (user)=>{
 
   btnValid.addEventListener("click",function(e){
     e.preventDefault();
-    console.log("début sauvegarde");
     
     var avatars = document.getElementsByName("avatarInput");
       var avatarSelectionne;

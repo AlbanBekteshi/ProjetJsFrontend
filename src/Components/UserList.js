@@ -2,10 +2,12 @@ let userList = document.querySelector("#userList");
 import {getUserSessionData} from "../utils/session.js";
 import {API_URL} from "../utils/server.js";
 
+/**
+ * Initialisation des listes pour le tri et l'affichage.
+ */
 let list = [];
 let connected = [];
 let notConnected = [];
-//Create User List
 
 const UserList = () => {
     const userCredential = getUserSessionData();
@@ -20,6 +22,9 @@ const UserList = () => {
         data.forEach((element) => {
             let addUserList;
             if (getUserSessionData()) {
+                /**
+                 * gestion de l'affichage du userList avec des badges bleu/vert pour les utilisateurs en ligne et les utilisateurs hors ligne.
+                 */
                 if (!element.connected) {
                     addUserList = `<ul class="list-group bg-dark">
                                        <li class="list-group-item bg-secondary d-flex justify-content-between align-items-center">
@@ -42,6 +47,11 @@ const UserList = () => {
 
             }
         });
+        /**
+         * Animation text pour l'affichage du nombre de personne connectée.
+         * source : https://tobiasahlin.com/moving-letters/#10
+         * modifications des targets.
+         */
         anime.timeline({loop: true})
             .add({
                 targets: '.ml10 .letter',
@@ -58,6 +68,11 @@ const UserList = () => {
         return userList;
     }
 
+    /**
+     * try de la liste pour afficher les utilisateurs connecté en premier.
+     * remplisage des tableaux connected et notConnected pour pouvoir récupérer le nombre de personnes connectée.
+     * @param data
+     */
     function sortUser(data) {
         data.forEach((element) => {
             if (!element.connected) {
@@ -76,6 +91,9 @@ const UserList = () => {
     }
 
     if (userCredential) {
+        /**
+         * Si l'utilisateur est connectée, récupération de la liste pour l'affichager dans un list-group
+         */
         fetch(API_URL + "users", {
             method: "GET",
             headers: {
