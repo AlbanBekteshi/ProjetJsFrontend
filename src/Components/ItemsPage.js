@@ -79,7 +79,7 @@ const ProfilPage = (data) => {
 
 const onItemsPage = (data,user) => {
     UserList();
-    setLayout("Game Item Collection","Game Items Collection","MyCollectionPage","My footer");
+    setLayout("Game Item Collection","Game Items Collection","My Collections","");
     
     /*totalPage est diviser en deux page différente
     * */
@@ -134,7 +134,7 @@ const onItemsPage = (data,user) => {
     if(jeuxSelectionner==""){
         isActive="active";
     }
-    SelectGame+= `<button type="button" class="btn btn-primary ${isActive}" id="all">Tout afficher </button>`;
+    SelectGame+= `<button type="button" class="btn float-right btn-outline-primary btn-lg ${isActive}" id="all">Tout afficher </button>`;
 
     listDesJeux.forEach(choixJeux=> {
         var isActive="";
@@ -142,7 +142,7 @@ const onItemsPage = (data,user) => {
             isActive="active";
         }
         SelectGame +=`
-                <button type="button" class="btn btn-primary ${isActive}" id="${choixJeux.jeu}">${choixJeux.jeu} </button>`;
+                <button type="button" class="btn float-right btn-outline-primary btn-lg ${isActive}" id="${choixJeux.jeu}">${choixJeux.jeu} </button>`;
     });
 
     SelectGame+=`</div></div></div>`;
@@ -153,12 +153,12 @@ const onItemsPage = (data,user) => {
         if(jeuxSelectionner===""){
             data.forEach(item => {
                 HomeItemsPage+=getAffichage(item);
-                HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}" data-toggle="modal" data-target="#myModal">Qui le possede ? </button>`
+                HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}" data-toggle="modal" data-target="#myModal"><span id="textItem">Qui le possede ?</span> </button>`
                 if(user.itemCollections.includes(item.itemId)){
-                    HomeItemsPage+= `<button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>`
+                    HomeItemsPage+= `<button type="button" class="btn float-right btn-danger" id="remove${item.itemId}">Retirer</button>`
                 }
                 else{
-                    HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add${item.itemId}">ajouter</button>`
+                    HomeItemsPage+= `<button type="button" class="btn float-right btn-primary" id="add${item.itemId}">ajouter</button>`
                 }
                 HomeItemsPage+=`</div></div></div>`;
             });
@@ -167,12 +167,12 @@ const onItemsPage = (data,user) => {
             data.forEach(item => {
                 if(item.jeu===jeuxSelectionner){
                     HomeItemsPage+=getAffichage(item);
-                    HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}" data-toggle="modal" data-target="#myModal">Qui le possede ? </button>`
+                    HomeItemsPage+= `<button type="button" class="btn btn-link" id="has${item.itemId}" value="${item.itemId}" data-toggle="modal" data-target="#myModal"><span id="textItem">Qui le possede ?</span> </button>`
                     if(user.itemCollections.includes(item.itemId)){
-                        HomeItemsPage+= `<button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>`
+                        HomeItemsPage+= `<button type="button" class="btn float-right btn-danger" id="remove${item.itemId}">Retirer</button>`
                     }
                     else{
-                        HomeItemsPage+= `<button type="button" class="btn btn-primary" id="add${item.itemId}">ajouter</button>`
+                        HomeItemsPage+= `<button type="button" class="btn float-right btn-primary" id="add${item.itemId}">ajouter</button>`
                     }
                     HomeItemsPage+=`</div></div></div>`;
                 }

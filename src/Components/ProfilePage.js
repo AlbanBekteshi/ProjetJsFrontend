@@ -125,7 +125,7 @@ const onUserPage = (user,items) => {
             var image = images[item.image].default;
             userPage+=`
               <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                <div class="card bg-secondary p-1 mb-2">
+                <div class="row mt-2 w-100 h-100 card bg-secondary p-1 mb-2">
                     <img src="${image}" class="card-img-top mt-1" alt="ItemImg">
                     <div class="card-body">
                         <h5 class="card-title font-weight-bold">${item.name}</h5>
@@ -134,7 +134,7 @@ const onUserPage = (user,items) => {
                             <u>Description :</u> ${item.description}<br>
                             <u>Prix :</u> ${item.price}<br>
                         </p>
-                        <button type="button" class="btn btn-danger" id="remove${item.itemId}">Retirer</button>
+                        <button type="button" class="btn btn-danger float-right" id="remove${item.itemId}">Retirer</button>
                     </div>
                 </div>  
               </div>

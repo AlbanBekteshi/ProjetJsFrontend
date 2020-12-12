@@ -41,10 +41,10 @@ const GlobalTchatPage = () => {
              */
             messageData.forEach((element) => {
                 if (element.idUser == getUserSessionData().idUser) {
-                    let message = `<br><li id="msg1" class="list-group-item bg-success">  <span>${element.username}</span> : ${element.text} <span id="chatDate" class="float-left text-white-50">${element.date}</span> </li>`
+                    let message = `<br><li id="msg1" class="list-group-item bg-success border-secondary">  <span>${element.username}</span> : ${element.text} <span id="chatDate" class="float-left text-white-50">${element.date}</span> </li>`
                     document.querySelector('#Gchat').innerHTML += message;
                 } else {
-                    let message = `<br><li id="msg2" class="list-group-item bg-primary"> <span>${element.username}</span> : ${element.text}<span id="chatDate" class="float-right text-white-50">${element.date}</span> </li>`
+                    let message = `<br><li id="msg2" class="list-group-item bg-primary border-secondary"> <span>${element.username}</span> : ${element.text}<span id="chatDate" class="float-right text-white-50">${element.date}</span> </li>`
                     document.querySelector('#Gchat').innerHTML += message;
                 }
                 var element = document.getElementById("Gchat");
@@ -62,14 +62,14 @@ const GlobalTchatPage = () => {
 
         <form class="col-12">
           <div class="form-group">
-            <textarea class="form-control bg-dark text-white" id="message" placeholder="Tapez votre message..." rows="3"></textarea>
+            <textarea class="form-control bg-dark border-secondary text-white" id="message" placeholder="Tapez votre message..." rows="3"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary float-right">Envoyer</button>
+          <button type="submit" class="btn btn-outline-primary float-right">Envoyer</button>
           
         </form>
         <script src="GlobalTchatPage.js"></script>
       </div>`;
-        setLayout("GIC : Message", "Game Items Collection", `Global Chat`, "My footer");
+        setLayout("GIC : Message", "Game Items Collection", `Chat Global`, "");
 
 
         GlobalTchatSelector.innerHTML = GlobalTchathtml;

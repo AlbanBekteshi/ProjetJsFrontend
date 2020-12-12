@@ -1,5 +1,5 @@
 import { setLayout } from "../utils/render.js";
-setLayout("GIC : Error","Game Items Collection","Error Page","My footer");
+setLayout("GIC : Error","Game Items Collection","Error Page","");
 let page = document.querySelector("#page");
 
 const ErrorPage = (err) => {

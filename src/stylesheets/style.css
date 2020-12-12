@@ -4,6 +4,7 @@ Code source : Cours de JS
 *{
   padding: 0;
   margin: 0;
+  font-family: 'Comic Sans MS', cursive;
 }
 
 body {
@@ -167,4 +168,8 @@ global chat management, gestion sur mesure de l'affichage.
 #chatDate{
   font-size:10px;
   font-family: Arial;
+}
+#textItem{
+  font-weight:bold;
+  display:inline-list-item;
 }
