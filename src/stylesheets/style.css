@@ -90,3 +90,33 @@ input:valid {
   line-height: 1em;
   transform-origin: 0 0;
 }
+
+
+/*
+global chat management
+ */
+#msg1{
+  font-size: 20px;
+  text-align: right;
+  border-radius:25px;
+}
+#msg2{
+  font-size: 20px;
+  text-align: left;
+  border-radius:25px;
+}
+#msg1 span {
+  font-weight:bold;
+}
+#msg2 span {
+  font-weight:bold;
+}
+#message{
+  text-align: right;
+}
+#Gchat {
+  max-height: 700px;
+  margin-bottom: 10px;
+  overflow-y:scroll;
+  overflow-x: hidden;
+}
