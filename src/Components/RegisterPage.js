@@ -99,8 +99,12 @@ Avatar<br>
     </label>
   </div>
 </div>
-
-<div class="mt-2">
+<br>
+<div class="form-group form-check">
+  <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+  <label class="form-check-label" for="exampleCheck1">J'accepte que mes données soient stockées et soient uniquement utilisées pour le bon fonctionnement de l'application</label>
+</div>
+<div class="mt-3">
   <button class="btn btn-primary btn-lg" id="btn" type="submit">Submit</button>
   <!-- Create an alert component with bootstrap that is not displayed by default-->
   <div class="alert alert-danger mt-2 d-none" id="messageBoard"></div>
@@ -137,60 +141,69 @@ function clearErrorBox(){
 
 const onRegister = (e) => {
   e.preventDefault();
-  var password = document.getElementById("password");
-  var password2 = document.getElementById("password2");
-  var email = document.getElementById("email");
-  var avatar = document.getElementsByName("avatarInput");
-
-  var avatarSelctionne =0;
-  for(var index = 0; index < avatar.length; index++){
-    if(avatar[index].checked){
-      avatarSelctionne=index+1;
-      break;
-    }
+  var checkbox = document.getElementById("exampleCheck1");
+  if(!checkbox.checked){
+    var error = new Error("Vous devez accepter que Game Items Collection stock vos informations pour le bon fonctionnement du site");
+    addErrorBoxOn(checkbox);
+    onError(error);
   }
+  else{
+    var password = document.getElementById("password");
+    var password2 = document.getElementById("password2");
+    var email = document.getElementById("email");
+    var avatar = document.getElementsByName("avatarInput");
 
-  clearErrorBox();
-  
-  // Email Verification
-  if(isEmailGoodFormat(email)){
+    var avatarSelctionne =0;
+    for(var index = 0; index < avatar.length; index++){
+      if(avatar[index].checked){
+        avatarSelctionne=index+1;
+        break;
+      }
+    }
+
+    clearErrorBox();
     
-    //Password verification
-    if(password.value!=password2.value){
-      var error = new Error("Les mots de passes ne sont pas identiques");
-      addErrorBoxOn(password);
-      addErrorBoxOn(password2);
-      onError(error);
-    }
-    else{
-      //email + password OK => register user
-      let user = {
-        username: document.getElementById("username").value,
-        email: document.getElementById("email").value,
-        password: document.getElementById("password").value,
-        fName: document.getElementById("fName").value,
-        lName: document.getElementById("lName").value,
-        avatar : avatarSelctionne,
-      };
+    // Email Verification
+    if(isEmailGoodFormat(email)){
+      
+      //Password verification
+      if(password.value!=password2.value){
+        var error = new Error("Les mots de passes ne sont pas identiques");
+        addErrorBoxOn(password);
+        addErrorBoxOn(password2);
+        onError(error);
+      }
+      else{
+        //email + password OK => register user
+        let user = {
+          username: document.getElementById("username").value,
+          email: document.getElementById("email").value,
+          password: document.getElementById("password").value,
+          fName: document.getElementById("fName").value,
+          lName: document.getElementById("lName").value,
+          avatar : avatarSelctionne,
+        };
 
-      fetch(API_URL + "users/", {
-        method: "POST", // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify(user), // body data type must match "Content-Type" header
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (!response.ok)
-            throw new Error(
-              "Error code : " + response.status + " : " + response.statusText
-            );
-          return response.json();
+        fetch(API_URL + "users/", {
+          method: "POST", // *GET, POST, PUT, DELETE, etc.
+          body: JSON.stringify(user), // body data type must match "Content-Type" header
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-        .then((data) => onUserRegistration(data))
-        .catch((err) => onError(err));
+          .then((response) => {
+            if (!response.ok)
+              throw new Error(
+                "Error code : " + response.status + " : " + response.statusText
+              );
+            return response.json();
+          })
+          .then((data) => onUserRegistration(data))
+          .catch((err) => onError(err));
+      }
     }
   }
+  
 };
 
 const onUserRegistration = (userData) => {
