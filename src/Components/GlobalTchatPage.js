@@ -13,11 +13,12 @@ let GlobalTchatSelector = document.querySelector("#page");
 
 const GlobalTchatPage = () => {
     const userCredential = getUserSessionData();
+
     if (!userCredential) RedirectUrl("/error", 'Resource not authorized. Please <a href="/login">login</a>.');
     else {
         let messageData = [];
         /**
-        Récupération des messages depuis le backend pour ensuite pouvoir les afficher de manière dynamique.
+        Récupération des messages depuis le backend pour ensuite pouvoir les afficher.
          */
         fetch(API_URL + "chats", {
             method: "GET",
@@ -41,7 +42,6 @@ const GlobalTchatPage = () => {
         }).then((data) => {
             messageData = data;
             /**
-             * Affichage dynamique de la conversation.
              * Affichage à droite pour l'utilisateur courant et affichage à gauche pour les autres.
              */
             messageData.forEach((element) => {
@@ -55,6 +55,7 @@ const GlobalTchatPage = () => {
                 var element = document.getElementById("Gchat");
                 element.scrollTop = element.scrollHeight;
             });
+            
         });
 
 
@@ -72,7 +73,6 @@ const GlobalTchatPage = () => {
           <button type="submit" class="btn btn-outline-primary float-right">Envoyer</button>
           
         </form>
-        <script src="GlobalTchatPage.js"></script>
       </div>`;
         setLayout("GIC : Message", "Game Items Collection", `Chat Global`, "");
 
@@ -84,17 +84,29 @@ const GlobalTchatPage = () => {
         document.querySelector('form').addEventListener('submit', event => {
             event.preventDefault();
             let currentTimeDate = new Date();
-            let currentTimeStamp = currentTimeDate.getDay()+"-"+currentTimeDate.getMonth()+"-"+ currentTimeDate.getFullYear()+"  "+ currentTimeDate.getUTCHours()+":"+ currentTimeDate.getUTCMinutes()+":"+currentTimeDate.getUTCSeconds();
+            let currentTimeStamp = currentTimeDate.getDate()+"-"+currentTimeDate.getMonth()+"-"+ currentTimeDate.getFullYear()+"  "+ currentTimeDate.getUTCHours()+":"+ currentTimeDate.getUTCMinutes()+":"+currentTimeDate.getUTCSeconds();
             let username = userCredential.username;
-            let message = username + " : " + document.querySelector('#message').value;
-            connection.send(message);
+            let data={
+                message:document.querySelector('#message').value,
+                id:getUserSessionData().idUser
+            }
+            connection.send(JSON.stringify(data));
             /**
              * Envoie les données "id user /name / message" pour la persistances des données dans le backend.
              */
-            fetch(API_URL + "chats/" + getUserSessionData().idUser + "/" + getUserSessionData().username + "/" + document.querySelector('#message').value+"/"+ currentTimeStamp.toString(), {
+            let tosend = {
+                id:getUserSessionData().idUser,
+                username:getUserSessionData().username,
+                text:document.querySelector('#message').value,
+                date:currentTimeStamp,
+            }
+            fetch(API_URL + "chats/", {
                 method: "POST",
+                body:JSON.stringify(tosend),
+
                 headers: {
                     Authorization: userCredential.token,
+                    "Content-Type": "application/json",
                 },
             }).then((response) => {
                 return response;
@@ -103,15 +115,6 @@ const GlobalTchatPage = () => {
             });
             document.querySelector('#message').value = '';
         });
-    }
-
-    connection.onmessage = () => {
-        /**
-         * affichage dynamique des messages.
-         */
-        setTimeout(function () {
-            RedirectUrl("/message");
-        }, 500);
     }
 };
 
@@ -128,6 +131,25 @@ connection.onclose = () => {
 connection.onerror = error => {
     console.error('failed to connect', error);
 };
+
+connection.onmessage = event => {
+    const userCredential = getUserSessionData();
+    let currentTimeDate = new Date();
+    let currentTimeStamp = currentTimeDate.getDate()+"-"+currentTimeDate.getMonth()+"-"+ currentTimeDate.getFullYear()+"  "+ currentTimeDate.getUTCHours()+":"+ currentTimeDate.getUTCMinutes()+":"+currentTimeDate.getUTCSeconds();
+    let texto = JSON.parse(event.data);
+    if(texto.id == getUserSessionData().idUser){
+        let message = `<br><li id="msg1" class="list-group-item bg-success border-secondary">  <span>${userCredential.username}</span> : ${texto.message} <span id="chatDate" class="float-left text-white-50">${currentTimeStamp}</span> </li>`
+        document.querySelector('#Gchat').innerHTML += message;
+    }
+    else{
+        let message = `<br><li id="msg2" class="list-group-item bg-primary border-secondary"> <span>${userCredential.username}</span> : ${texto.message}<span id="chatDate" class="float-right text-white-50">${currentTimeStamp}</span> </li>`
+        document.querySelector('#Gchat').innerHTML += message;
+    }
+    var element = document.getElementById("Gchat");
+    element.scrollTop = element.scrollHeight;
+};
+   
+
 
 
 
