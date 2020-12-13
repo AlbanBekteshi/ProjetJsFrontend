@@ -88,7 +88,8 @@ const GlobalTchatPage = () => {
             let username = userCredential.username;
             let data={
                 message:document.querySelector('#message').value,
-                id:getUserSessionData().idUser
+                id:getUserSessionData().idUser,
+                username:getUserSessionData().username
             }
             connection.send(JSON.stringify(data));
             /**
@@ -142,7 +143,7 @@ connection.onmessage = event => {
         document.querySelector('#Gchat').innerHTML += message;
     }
     else{
-        let message = `<br><li id="msg2" class="list-group-item bg-primary border-secondary"> <span>${userCredential.username}</span> : ${texto.message}<span id="chatDate" class="float-right text-white-50">${currentTimeStamp}</span> </li>`
+        let message = `<br><li id="msg2" class="list-group-item bg-primary border-secondary"> <span>${texto.username}</span> : ${texto.message}<span id="chatDate" class="float-right text-white-50">${currentTimeStamp}</span> </li>`
         document.querySelector('#Gchat').innerHTML += message;
     }
     var element = document.getElementById("Gchat");
